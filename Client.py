@@ -19,7 +19,6 @@ new_IP = False
 
 class Starter(Thread):
     global soc
-    global runnin
     global new_IP
     global break_all
     global Ip
@@ -35,9 +34,7 @@ class Starter(Thread):
         host = ""
         Thread.__init__(self)
         print("First thread initialized. Starting connection with server")
-        runnin = True
         self.running = True
-        self.runnin = runnin
 
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         port = 8888
@@ -70,8 +67,8 @@ class Starter(Thread):
                 try:
                     soc.connect((host, port))
                     print("Success connecting to server")
-                    if Network() is True:
-                        SSID = Connected_To_Network()
+                    if network_func() is True:
+                        SSID = connected_to_network_func()
                         print("Adding -> " + SSID + " as server network")
                         with open('Saved_Network.txt', 'w') as f:
                             f.write(SSID)
@@ -109,19 +106,13 @@ class Starter(Thread):
                 elif message == "/rm":
                     rm_message = '--RM--'
                     soc.sendall(rm_message.encode("utf8"))
-                    rm()
+                    rm_func()
             print('sending quit')
             message = "--quit--"
             soc.send(message.encode("utf-8"))
             time.sleep(1)
             return message
 
-
-def rm():
-    message = ""
-    while message != "/back":
-        message = input(" -> ")
-        soc.sendall(message.encode("utf8"))
 
 class Receive(Starter):
     global break_all
@@ -130,9 +121,7 @@ class Receive(Starter):
     def __init__(self, Starter):
         global break_all
         global soc
-        global runnin
         Thread.__init__(self)
-        runnin = Starter.runnin
 
     def run(self):
         global break_all
@@ -189,6 +178,7 @@ class Checker(Thread):
                 else:
                     pass
 
+
 try:
     with open("IP.txt","r") as IP:
         Ip = IP.readline()
@@ -197,7 +187,15 @@ except:
     open("IP.txt",'w')
     new_IP = True
 
-def Connected_To_Network():
+
+def rm_func():
+    message = ""
+    while message != "/back":
+        message = input(" -> ")
+        soc.sendall(message.encode("utf8"))
+
+
+def connected_to_network_func():
     subprocess.run("Current_Network.bat", stdout=FNULL)
     with open("Current_Network.txt") as f:
         f = f.read()
@@ -205,7 +203,8 @@ def Connected_To_Network():
         f = f.split('\n')[0]
         return f
 
-def Network():
+
+def network_func():
     with open("Saved_Network.txt") as f:
         f = f.read()
         if f == "Insert SSID":
