@@ -14,20 +14,20 @@ def internet_on():
 
 try:
     os.remove("tmp.txt")
+    print('removing tmp.txt')
 except:
     pass
 
 
 if __name__ == '__main__':
-
-
     while True:
-        if os.path.isfile("./tmp.txt"):
-            pass
+        if os.path.isfile("tmp.txt"):
+            print('tmp.txt found')
         else:
+            internet_on()
             if internet_on() == True:
                 subprocess.call(['python.exe', 'Client.py'])
-                print('Connection lost... Restarting program')
+                print('Connection lost (main.py)... Restarting program')
             else:
                 print('Waiting for connection to the internet...')
                 time.sleep(5)

@@ -1,0 +1,1 @@
+ping.exe 172.24.10.116 -n 2 > ping.txt
