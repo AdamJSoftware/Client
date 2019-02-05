@@ -3,9 +3,6 @@ import os
 from threading import Thread
 import time
 import subprocess
-import requests
-from pyautogui import press, typewrite, hotkey
-import requests
 
 
 global soc
@@ -19,15 +16,14 @@ FNULL = open(os.devnull, 'w')
 break_all = False
 new_IP = False
 
-class starter(Thread):
+
+class Starter(Thread):
     global soc
     global runnin
     global new_IP
     global break_all
     global Ip
     global connected
-
-
 
     def __init__(self):
         global soc
@@ -74,6 +70,13 @@ class starter(Thread):
                 try:
                     soc.connect((host, port))
                     print("Success connecting to server")
+                    if Network() is True:
+                        SSID = Connected_To_Network()
+                        print("Adding -> " + SSID + " as server network")
+                        with open('Saved_Network.txt', 'w') as f:
+                            f.write(SSID)
+                    else:
+                        pass
                     message = socket.gethostname()
                     print(message)
                     if break_all == True:
@@ -120,16 +123,16 @@ def rm():
         message = input(" -> ")
         soc.sendall(message.encode("utf8"))
 
-class Receive(starter):
+class Receive(Starter):
     global break_all
     global soc
 
-    def __init__(self, starter):
+    def __init__(self, Starter):
         global break_all
         global soc
         global runnin
         Thread.__init__(self)
-        runnin = starter.runnin
+        runnin = Starter.runnin
 
     def run(self):
         global break_all
@@ -169,18 +172,16 @@ class Checker(Thread):
     def run(self):
         global soc
         global Ip
-        print('starting')
+        print('Starting Internet Check...')
         with open("ping.bat", "w+") as ping:
             ping.write("ping.exe " + Ip + " -n 2 > ping.txt")
         while True:
-            print('starting internet check')
-            press('enter')
             while True:
                 subprocess.run("ping.bat", stdout=FNULL)
                 with open("ping.txt", "r") as file:
                     file = file.read()
                 if file.__contains__("Destination host unreachable."):
-                    print('server closed')
+                    print('Lost connection to server (ping)')
                     break_all = True
                     os.remove("tmp.txt")
                     os._exit(1)
@@ -196,11 +197,28 @@ except:
     open("IP.txt",'w')
     new_IP = True
 
+def Connected_To_Network():
+    subprocess.run("Current_Network.bat", stdout=FNULL)
+    with open("Current_Network.txt") as f:
+        f = f.read()
+        f = f.split(': ')[1]
+        f = f.split('\n')[0]
+        return f
+
+def Network():
+    with open("Saved_Network.txt") as f:
+        f = f.read()
+        if f == "Insert SSID":
+            return True
+        else:
+            return False
+
+
 def main():
     f = open("tmp.txt", "w+")
     f.close()
     c = Checker()
-    a = starter()
+    a = Starter()
     b = Receive(a)
     c.start()
     a.start()

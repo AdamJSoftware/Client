@@ -1,22 +1,38 @@
 import os
 import subprocess
-import Client
 import time
-import requests
-import sys
-from threading import Thread
-def internet_on():
-    try:
-        requests.get('http://216.58.192.142')
+
+FNULL = open(os.devnull, 'w')
+
+
+def Connected_To_Network():
+    subprocess.run("Current_Network.bat", stdout=FNULL)
+    with open("Current_Network.txt") as f:
+        f = f.read()
+        f = f.split(': ')[1]
+        f = f.split('\n')[0]
+        print(f)
+    with open("Saved_Network.txt") as SN:
+        SN = SN.read()
+        print(SN)
+    if f == SN or SN == "Insert SSID":
         return True
-    except:
+    else:
         return False
+
 
 try:
     os.remove("tmp.txt")
-    print('removing tmp.txt')
 except:
     pass
+
+try:
+    f = open("Saved_Network.txt")
+    f.read()
+except:
+    print("Resetting saved network")
+    with open("Saved_Network.txt", "w") as f:
+        f.write("Insert SSID")
 
 
 if __name__ == '__main__':
@@ -24,10 +40,9 @@ if __name__ == '__main__':
         if os.path.isfile("tmp.txt"):
             print('tmp.txt found')
         else:
-            internet_on()
-            if internet_on() == True:
+            if Connected_To_Network() is True:
                 subprocess.call(['python.exe', 'Client.py'])
-                print('Connection lost to server Restarting program')
-            else:
+                print('Connection lost to server...')
                 print('Waiting for connection to the internet...')
+            else:
                 time.sleep(5)
