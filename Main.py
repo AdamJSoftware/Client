@@ -27,7 +27,7 @@ if __name__ == '__main__':
             internet_on()
             if internet_on() == True:
                 subprocess.call(['python.exe', 'Client.py'])
-                print('Connection lost (main.py)... Restarting program')
+                print('Connection lost to server Restarting program')
             else:
                 print('Waiting for connection to the internet...')
                 time.sleep(5)
