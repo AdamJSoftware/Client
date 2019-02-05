@@ -1,0 +1,1 @@
+NETSH WLAN SHOW INTERFACE | findstr /r "^....SSID" > Current_Network.txt
