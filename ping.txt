@@ -1,7 +1,0 @@
-
-Pinging 172.24.10.116 with 32 bytes of data:
-Reply from 172.24.10.128: Destination host unreachable.
-Reply from 172.24.10.128: Destination host unreachable.
-
-Ping statistics for 172.24.10.116:
-    Packets: Sent = 2, Received = 2, Lost = 0 (0% loss),
