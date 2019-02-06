@@ -14,14 +14,17 @@ def Connected_To_Network():
             print("Currently connected to -> " + f)
         else:
             f = ""
-    with open("Saved_Network.txt") as SN:
-        SN = SN.read()
-        print("Current Server Network -> " + SN)
+    SN = sn_func()
     if f == SN or SN == "Insert SSID":
         return True
     else:
         return False
 
+
+def sn_func():
+    with open("Saved_Network.txt") as SN:
+        SN = SN.read()
+        return SN
 
 try:
     os.remove("tmp.txt")
@@ -46,5 +49,7 @@ if __name__ == '__main__':
                 subprocess.call(['python.exe', 'Client.py'])
                 print('Connection lost to server...')
                 print('Waiting for connection to the internet...')
+                SN = sn_func()
+                print("Current Server Network -> " + SN)
             else:
                 time.sleep(5)

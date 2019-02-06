@@ -160,13 +160,13 @@ class Checker(Thread):
         global Ip
         print('Starting Internet Check...')
         with open("ping.bat", "w+") as ping:
-            ping.write("ping.exe " + Ip + " -n 2 > ping.txt")
+            ping.write("ping.exe " + Ip + " -n 1 > ping.txt")
         while True:
             while True:
                 subprocess.run("ping.bat", stdout=FNULL)
                 with open("ping.txt", "r") as file:
                     file = file.read()
-                if file.__contains__("Destination host unreachable."):
+                if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
                     print('Lost connection to server (ping)')
                     break_all = True
                     os.remove("tmp.txt")
