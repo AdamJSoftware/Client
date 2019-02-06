@@ -44,6 +44,7 @@ class Starter(Thread):
             while j == True:
                 Q = input('Input the IP ADDRESS presented on the server screen until one of them works\n')
                 host = Q
+                Ip = Q
                 try:
                     soc.connect((host, port))
                     print("Success connecting to server")
@@ -92,21 +93,17 @@ class Starter(Thread):
             print("Enter 'quit' to exit")
             message = ""
             while message != 'quit':
-                if break_all == True:
-                    return
                 message = input(" -> ")
                 if message == "/send":
                     message = "--SENDING_FILE--"
                     soc.sendall(message.encode("utf8"))
                     os.system('File_Sender.py')
-                if break_all == True:
-                    return
-                if message != "/send":
-                    soc.sendall(message.encode("utf8"))
                 elif message == "/rm":
                     rm_message = '--RM--'
                     soc.sendall(rm_message.encode("utf8"))
                     rm_func()
+                else:
+                    soc.sendall(message.encode("utf8"))
             print('sending quit')
             message = "--quit--"
             soc.send(message.encode("utf-8"))
@@ -202,6 +199,7 @@ def connected_to_network_func():
         f = f.split(': ')[1]
         f = f.split('\n')[0]
         return f
+
 
 
 def network_func():

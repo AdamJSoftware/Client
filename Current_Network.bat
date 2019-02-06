@@ -1,1 +1,1 @@
-NETSH WLAN SHOW INTERFACE | findstr /r "^....SSID" > Current_Network.txt
+powershell.exe -ExecutionPolicy Bypass -File Current_Network.ps1

@@ -1,0 +1,1 @@
+(get-netconnectionProfile).Name | Out-File -filepath Current_Network.txt
