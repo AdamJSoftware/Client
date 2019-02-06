@@ -41,33 +41,40 @@ class Starter(Thread):
 
         j = True
         if new_IP == True:
+            first_try = False
             while j == True:
-                Q = input('Input the IP ADDRESS presented on the server screen until one of them works\n')
-                host = Q
-                Ip = Q
+                if first_try is False:
+                    Q = input('Input the IP ADDRESS presented on the server screen until one of them works\n')
+                    host = Q
+                    Ip = Q
+                else:
+                    pass
                 try:
                     soc.connect((host, port))
-                    print("Success connecting to server")
+                    os.system('cls')
+                    print("Successfully connected to server")
                     message = socket.gethostname()
-                    print(message)
+                    print("Client hostname -> " + message)
                     if break_all == True:
                         return
                     else:
                         soc.sendall(message.encode("utf-8"))
-                    with open("IP.txt",'w') as f:
+                    with open("IP.txt", 'w') as f:
                         f.write(host)
                     j = False
-                except soc.gettimeout():
+                except:
+                    os.system('cls')
                     Q = input("Try the next IP ADDRESS:\n")
                     host = Q
+                    first_try = True
 
         else:
             host = Ip
-            print(host)
+            print("Connecting to -> " + host)
             while connected == False:
                 try:
                     soc.connect((host, port))
-                    print("Success connecting to server")
+                    print("Successfully connected to server")
                     if network_func() is True:
                         SSID = connected_to_network_func()
                         print("Adding -> " + SSID + " as server network")
@@ -76,7 +83,7 @@ class Starter(Thread):
                     else:
                         pass
                     message = socket.gethostname()
-                    print(message)
+                    print("Client hostname -> " + message)
                     if break_all == True:
                         return
                     else:
@@ -90,7 +97,6 @@ class Starter(Thread):
         while self.running:
             if break_all == True:
                 return
-            print("Enter 'quit' to exit")
             message = ""
             while message != 'quit':
                 message = input(" -> ")

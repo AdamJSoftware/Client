@@ -43,10 +43,12 @@ except:
 if __name__ == '__main__':
     while True:
         if os.path.isfile("tmp.txt"):
-            print('tmp.txt found')
+            pass
         else:
             if Connected_To_Network() is True:
+                os.system('cls')
                 subprocess.call(['python.exe', 'Client.py'])
+                os.system('cls')
                 print('Connection lost to server...')
                 print('Waiting for connection to the internet...')
                 SN = sn_func()
