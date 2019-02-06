@@ -1,1 +1,1 @@
-ping.exe no -n 1 > ping.txt
+ping.exe AJ-PC -n 1 > ping.txt

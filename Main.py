@@ -5,7 +5,7 @@ import time
 FNULL = open(os.devnull, 'w')
 
 
-def Connected_To_Network():
+def connected_to_network():
     subprocess.run("Current_Network.bat", stdout= FNULL)
     with open("Current_Network.txt", encoding="(utf-16") as f:
         f = f.read()
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         if os.path.isfile("tmp.txt"):
             pass
         else:
-            if Connected_To_Network() is True:
+            if connected_to_network() is True:
                 os.system('cls')
                 subprocess.call(['python.exe', 'Client.py'])
                 os.system('cls')

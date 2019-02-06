@@ -6,21 +6,17 @@ import subprocess
 
 
 global soc
-global a
-global break_all
 global new_IP
 global Ip
 
 FNULL = open(os.devnull, 'w')
 
-break_all = False
 new_IP = False
 
 
 class Starter(Thread):
     global soc
     global new_IP
-    global break_all
     global Ip
     global connected
 
@@ -28,7 +24,6 @@ class Starter(Thread):
         global soc
         global connected
         connected = False
-        global break_all
         global Ip
         global new_IP
         host = ""
@@ -55,10 +50,7 @@ class Starter(Thread):
                     print("Successfully connected to server")
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    if break_all == True:
-                        return
-                    else:
-                        soc.sendall(message.encode("utf-8"))
+                    soc.sendall(message.encode("utf-8"))
                     with open("IP.txt", 'w') as f:
                         f.write(host)
                     j = False
@@ -69,10 +61,10 @@ class Starter(Thread):
                     first_try = True
 
         else:
-            host = Ip
-            print("Connecting to -> " + host)
             while connected == False:
                 try:
+                    host = Ip
+                    print("Connecting to -> " + host)
                     soc.connect((host, port))
                     print("Successfully connected to server")
                     if network_func() is True:
@@ -84,10 +76,7 @@ class Starter(Thread):
                         pass
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    if break_all == True:
-                        return
-                    else:
-                        soc.sendall(message.encode("utf-8"))
+                    soc.sendall(message.encode("utf-8"))
                     connected = True
                 except:
                     pass
@@ -95,8 +84,6 @@ class Starter(Thread):
     def run(self):
         global soc
         while self.running:
-            if break_all == True:
-                return
             message = ""
             while message != 'quit':
                 message = input(" -> ")
@@ -118,35 +105,30 @@ class Starter(Thread):
 
 
 class Receive(Starter):
-    global break_all
     global soc
 
     def __init__(self, Starter):
-        global break_all
         global soc
         Thread.__init__(self)
 
     def run(self):
-        global break_all
         global soc
         while True:
             try:
                 data = soc.recv(1024).decode()
                 if not str(data).__contains__("--TEST--"):
-                    if not str(data).__contains__('testtest'):
-                        if data == "":
-                            break_all = True
-                            return
-                        elif str(data) == "--SENDING_FILE--":
-                            print('recieving file...')
-                            os.system('Get.py')
-                        else:
-                            print('\n' + "Recieving message from server: " + data)
-                            time.sleep(.1)
+                    if data == "":
+                        os._exit(1)
+                        print('lost connection')
+                    elif str(data) == "--SENDING_FILE--":
+                        print('recieving file...')
+                        os.system('Get.py')
+                    else:
+                        print('\n' + "Recieving message from server: " + data)
+                        time.sleep(.1)
 
             except:
                 print('server closed')
-                break_all = True
                 os.remove("tmp.txt")
                 os._exit(1)
                 return
@@ -164,7 +146,6 @@ class Checker(Thread):
     def run(self):
         global soc
         global Ip
-        print('Starting Internet Check...')
         with open("ping.bat", "w+") as ping:
             ping.write("ping.exe " + Ip + " -n 1 > ping.txt")
         while True:
@@ -174,7 +155,6 @@ class Checker(Thread):
                     file = file.read()
                 if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
                     print('Lost connection to server (ping)')
-                    break_all = True
                     os.remove("tmp.txt")
                     os._exit(1)
                     return
@@ -192,6 +172,7 @@ except:
 
 
 def rm_func():
+    print('starting remote')
     message = ""
     while message != "/back":
         message = input(" -> ")
@@ -200,12 +181,10 @@ def rm_func():
 
 def connected_to_network_func():
     subprocess.run("Current_Network.bat", stdout=FNULL)
-    with open("Current_Network.txt") as f:
+    with open("Current_Network.txt", encoding="utf-16") as f:
         f = f.read()
-        f = f.split(': ')[1]
         f = f.split('\n')[0]
         return f
-
 
 
 def network_func():
