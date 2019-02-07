@@ -9,7 +9,9 @@ global soc
 global new_IP
 global Ip
 
-FNULL = open(os.devnull, 'w')
+FNULL = open(os.devnull,
+
+             'w')
 
 new_IP = False
 
@@ -47,10 +49,12 @@ class Starter(Thread):
                 try:
                     soc.connect((host, port))
                     os.system('cls')
-                    print("Successfully connected to server")
+                    print("Successfully connected to serv"
+                          "er")
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    soc.sendall(message.encode("utf-8"))
+                    newmessage = "--PCNAME--||" + message
+                    soc.sendall(newmessage.encode("utf-8"))
                     with open("IP.txt", 'w') as f:
                         f.write(host)
                     j = False
@@ -76,7 +80,8 @@ class Starter(Thread):
                         pass
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    soc.sendall(message.encode("utf-8"))
+                    newmessage = "--PCNAME--||" + message
+                    soc.sendall(newmessage.encode("utf-8"))
                     connected = True
                 except:
                     pass
