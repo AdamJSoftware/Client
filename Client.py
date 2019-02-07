@@ -9,9 +9,7 @@ global soc
 global new_IP
 global Ip
 
-FNULL = open(os.devnull,
-
-             'w')
+FNULL = open(os.devnull, 'w')
 
 new_IP = False
 
