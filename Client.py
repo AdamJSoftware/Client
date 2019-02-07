@@ -65,10 +65,10 @@ class Starter(Thread):
                     first_try = True
 
         else:
+            host = Ip
+            print("Connecting to -> " + host)
             while connected == False:
                 try:
-                    host = Ip
-                    print("Connecting to -> " + host)
                     soc.connect((host, port))
                     print("Successfully connected to server")
                     if network_func() is True:
