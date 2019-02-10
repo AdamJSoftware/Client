@@ -1,9 +1,8 @@
-import socket
 import os
-from threading import Thread
-import time
+import socket
 import subprocess
-
+import time
+from threading import Thread
 
 global soc
 global new_IP
@@ -47,8 +46,7 @@ class Starter(Thread):
                 try:
                     soc.connect((host, port))
                     os.system('cls')
-                    print("Successfully connected to serv"
-                          "er")
+                    print("Successfully connected to server")
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
                     newmessage = "--PCNAME--||" + message
@@ -166,11 +164,11 @@ class Checker(Thread):
 
 
 try:
-    with open("IP.txt","r") as IP:
+    with open("IP.txt", "r") as IP:
         Ip = IP.readline()
 except:
     print("Server IP not found... Creating new log")
-    open("IP.txt",'w')
+    open("IP.txt", 'w')
     new_IP = True
 
 
