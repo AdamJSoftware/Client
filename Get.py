@@ -1,6 +1,8 @@
 from pyautogui import press
+
 press('enter')
 import sys
+
 with open("IP.txt", 'r') as f:
     IP_TO_SEND = f.read()
     print(IP_TO_SEND)
@@ -10,8 +12,6 @@ with open("IP.txt", 'r') as f:
     else:
         # Import socket module
         import socket
-
-        import time
 
         s = socket.socket()
 

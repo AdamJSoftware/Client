@@ -1,0 +1,1 @@
+powershell.exe -ExecutionPolicy Bypass -File Current_Network.ps1
