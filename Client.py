@@ -139,8 +139,8 @@ class Receive(Starter):
                         ip_to_send_func(data)
                         os.system('Get.py')
                     elif str(data).__contains__("--CLIENT_ID--"):
-                        data = data.split("--CLIENT_ID--")[1]
                         print('got adress')
+                        data = data.split("--CLIENT_ID--")[1]
                         ip_to_send_func(data)
                         print('starting server')
                         os.system('File_Sender.py')
@@ -214,6 +214,7 @@ def connected_to_network_func():
 def ip_to_send_func(Q):
     Q = str(soc).rsplit("raddr=('", 1)[1]
     Q = str(Q).rsplit("',", 1)[0]
+    print(Q)
     with open("Resources\Temporary_Files\IP_TO_SEND.txt", 'w') as f:
         f.write(Q)
 
