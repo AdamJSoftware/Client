@@ -1,9 +1,10 @@
 from pyautogui import press
-
+import pyautogui
+pyautogui.FAILSAFE = False
 press('enter')
 import sys
 
-with open("IP.txt", 'r') as f:
+with open("IP_TO_SEND.txt", 'r') as f:
     IP_TO_SEND = f.read()
     print(IP_TO_SEND)
     if IP_TO_SEND == "":
