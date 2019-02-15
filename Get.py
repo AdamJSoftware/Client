@@ -1,4 +1,5 @@
 from pyautogui import press
+import pyautogui
 pyautogui.FAILSAFE = False
 press('enter')
 import sys
