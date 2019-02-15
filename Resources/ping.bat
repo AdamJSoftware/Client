@@ -1,0 +1,1 @@
+ping.exe 172.24.10.134 -n 1 > Resources/Temporary_files/ping.txt

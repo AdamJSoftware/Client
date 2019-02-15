@@ -1,0 +1,1 @@
+(get-netconnectionProfile).Name | Out-File -filepath Resources/Temporary_files/Current_Network.txt
