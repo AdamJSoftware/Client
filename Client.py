@@ -140,8 +140,8 @@ class Receive(Starter):
                         os.system('Get.py')
                     elif str(data).__contains__("--CLIENT_ID--"):
                         data = data.split("--CLIENT_ID--")[1]
+                        print('got adress')
                         ip_to_send_func(data)
-
                         print('starting server')
                         os.system('File_Sender.py')
                     else:
@@ -149,7 +149,7 @@ class Receive(Starter):
                         time.sleep(.1)
             except:
                 print('server closed')
-                os.remove("Resources\Temporary_Files\tmp.txt")
+                os.remove("Resources\Temporary_Files\\tmp.txt")
                 os._exit(1)
                 return
 
