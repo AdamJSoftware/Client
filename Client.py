@@ -96,6 +96,11 @@ class Starter(Thread):
                     rm_message = '--RM--'
                     soc.sendall(rm_message.encode("utf8"))
                     rm_func()
+                elif message.__contains__('/send to '):
+                    message = message.split("/send to ")[1]
+                    print(message)
+                    message = "--SEND_TO--" + message
+                    soc.sendall(message.encode("utf-8"))
                 else:
                     soc.sendall(message.encode("utf8"))
             print('sending quit')
@@ -122,15 +127,24 @@ class Receive(Starter):
                         os._exit(1)
                         print('lost connection')
                     elif str(data) == "--SENDING_FILE--":
+                        Q = soc
+                        ip_to_send_func(Q)
                         print('recieving file...')
                         os.system('Get.py')
                     elif str(data).__contains__("--RM_MESSAGE--"):
                         data = data.split("--RM_MESSAGE--")[1]
                         print("RM: " + data)
+                    elif str(data).__contains__("--SENDING_FILE_TO--"):
+                        data = data.split("--SENDING_FILE_TO--")[1]
+                        ip_to_send_func(data)
+                        os.system('Get.py')
+                    elif str(data).__contains__("--CLIENT_ID--"):
+                        data = data.split("--CLIENT_ID--")[1]
+                        ip_to_send_func(data)
+                        os.system('File_Sender.py')
                     else:
                         print('\n' + "Recieving message from server: " + data)
                         time.sleep(.1)
-
             except:
                 print('server closed')
                 os.remove("tmp.txt")
@@ -193,6 +207,13 @@ def connected_to_network_func():
         f = f.read()
         f = f.split('\n')[0]
         return f
+
+
+def ip_to_send_func(Q):
+    Q = str(soc).rsplit("raddr=('", 1)[1]
+    Q = str(Q).rsplit("',", 1)[0]
+    with open("IP_TO_SEND.txt", 'w') as f:
+        f.write(Q)
 
 
 def network_func():
