@@ -51,7 +51,7 @@ class Starter(Thread):
                     print("Client hostname -> " + message)
                     newmessage = "--PCNAME--||" + message
                     soc.sendall(newmessage.encode("utf-8"))
-                    with open("Resources/Temporary_Files/IP.txt", 'w') as f:
+                    with open("Resources\Temporary_Files\IP.txt", 'w') as f:
                         f.write(host)
                     j = False
                 except:
@@ -70,7 +70,7 @@ class Starter(Thread):
                     if network_func() is True:
                         SSID = connected_to_network_func()
                         print("Adding -> " + SSID + " as server network")
-                        with open('Resources/Temporary_Files/Saved_Network.txt', 'w') as f:
+                        with open('Resources\Temporary_Files\Saved_Network.txt', 'w') as f:
                             f.write(SSID)
                     else:
                         pass
@@ -149,7 +149,7 @@ class Receive(Starter):
                         time.sleep(.1)
             except:
                 print('server closed')
-                os.remove("Resources/Temporary_Files/tmp.txt")
+                os.remove("Resources\Temporary_Files\tmp.txt")
                 os._exit(1)
                 return
 
@@ -166,16 +166,16 @@ class Checker(Thread):
     def run(self):
         global soc
         global Ip
-        with open("Resources/ping.bat", "w+") as ping:
-            ping.write("ping.exe " + Ip + " -n 1 > Temporary_Files/ping.txt")
+        with open("Resources\ping.bat", "w+") as ping:
+            ping.write("ping.exe " + Ip + " -n 1 > Resources\Temporary_Files\ping.txt")
         while True:
             while True:
-                subprocess.run("Resources/ping.bat", stdout=FNULL)
-                with open("Resources/Temporary_Files/ping.txt", "r") as file:
+                subprocess.run("Resources\ping.bat", stdout=FNULL)
+                with open("Resources\Temporary_Files\\ping.txt", "r") as file:
                     file = file.read()
                 if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
                     print('Lost connection to server (ping)')
-                    os.remove("Resources/Temporary_Files/tmp.txt")
+                    os.remove("Resources\Temporary_Files\\tmp.txt")
                     os._exit(1)
                     return
                 else:
@@ -183,11 +183,11 @@ class Checker(Thread):
 
 
 try:
-    with open("Resources/Temporary_Files/IP.txt", "r") as IP:
+    with open("Resources\Temporary_Files\IP.txt", "r") as IP:
         Ip = IP.readline()
 except:
     print("Server IP not found... Creating new log")
-    open("Resources/Temporary_Files/IP.txt", 'w')
+    open("Resources\Temporary_Files\IP.txt", 'w')
     new_IP = True
 
 
@@ -204,8 +204,8 @@ def rm_func():
 
 
 def connected_to_network_func():
-    subprocess.run("Resources/Current_Network.bat", stdout=FNULL)
-    with open("Resources/Temporary_Files/Current_Network.txt", encoding="utf-16") as f:
+    subprocess.run("Resources\Current_Network.bat", stdout=FNULL)
+    with open("Resources\Temporary_Files\Current_Network.txt", encoding="utf-16") as f:
         f = f.read()
         f = f.split('\n')[0]
         return f
@@ -214,12 +214,12 @@ def connected_to_network_func():
 def ip_to_send_func(Q):
     Q = str(soc).rsplit("raddr=('", 1)[1]
     Q = str(Q).rsplit("',", 1)[0]
-    with open("Resources/Temporary_Files/IP_TO_SEND.txt", 'w') as f:
+    with open("Resources\Temporary_Files\IP_TO_SEND.txt", 'w') as f:
         f.write(Q)
 
 
 def network_func():
-    with open("Resources/Temporary_Files/Saved_Network.txt") as f:
+    with open("Resources\Temporary_Files\Saved_Network.txt") as f:
         f = f.read()
         if f == "Insert SSID":
             return True
@@ -228,7 +228,7 @@ def network_func():
 
 
 def main():
-    f = open("Resources/Temporary_Files/tmp.txt", "w+")
+    f = open("Resources\Temporary_Files\\tmp.txt", "w+")
     f.close()
     c = Checker()
     a = Starter()

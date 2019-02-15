@@ -6,8 +6,8 @@ FNULL = open(os.devnull, 'w')
 
 
 def connected_to_network():
-    subprocess.run("Resources/Current_Network.bat", stdout= FNULL)
-    with open("Resources/Temporary_Files/Current_Network.txt", encoding="(utf-16") as f:
+    subprocess.run("Resources\Current_Network.bat", stdout= FNULL)
+    with open("Resources\Temporary_Files\Current_Network.txt", encoding="(utf-16") as f:
         f = f.read()
         if f != "":
             f = f.split('\n')[0]
@@ -22,27 +22,27 @@ def connected_to_network():
 
 
 def sn_func():
-    with open("Resources/Temporary_Files/Saved_Network.txt") as SN:
+    with open("Resources\Temporary_Files\Saved_Network.txt") as SN:
         SN = SN.read()
         return SN
 
 try:
-    os.remove("Resources/Temporary_Files/tmp.txt")
+    os.remove("Resources\Temporary_Files\\tmp.txt")
 except:
     pass
 
 try:
-    f = open("Resources/Temporary_Files/Saved_Network.txt")
+    f = open("Resources\Temporary_Files\Saved_Network.txt")
     f.read()
 except:
     print("Resetting saved network")
-    with open("Resources/Temporary_Files/Saved_Network.txt", "w") as f:
+    with open("Resources\Temporary_Files\Saved_Network.txt", "w") as f:
         f.write("Insert SSID")
 
 
 if __name__ == '__main__':
     while True:
-        if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
+        if os.path.isfile("Resources\Temporary_Files\\tmp.txt"):
             pass
         else:
             if connected_to_network() is True:
