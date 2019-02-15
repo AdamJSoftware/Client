@@ -1,8 +1,8 @@
 
-Pinging AJ-PC [fe80::2d1c:78:b287:d499%17] with 32 bytes of data:
-Reply from fe80::2d1c:78:b287:d499%17: time=4ms 
+Pinging 172.24.10.116 with 32 bytes of data:
+Reply from 172.24.10.116: bytes=32 time<1ms TTL=128
 
-Ping statistics for fe80::2d1c:78:b287:d499%17:
+Ping statistics for 172.24.10.116:
     Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
-    Minimum = 4ms, Maximum = 4ms, Average = 4ms
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms

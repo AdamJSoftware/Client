@@ -124,6 +124,9 @@ class Receive(Starter):
                     elif str(data) == "--SENDING_FILE--":
                         print('recieving file...')
                         os.system('Get.py')
+                    elif str(data).__contains__("--RM_MESSAGE--"):
+                        data = data.split("--RM_MESSAGE--")[1]
+                        print("RM: " + data)
                     else:
                         print('\n' + "Recieving message from server: " + data)
                         time.sleep(.1)
@@ -177,6 +180,10 @@ def rm_func():
     message = ""
     while message != "/back":
         message = input(" -> ")
+        if message == "/send":
+            print('Please select what computer you would like to send a file:')
+        elif message.__contains__("/send "):
+            soc.send(message.encode("utf-8"))
         soc.sendall(message.encode("utf8"))
 
 

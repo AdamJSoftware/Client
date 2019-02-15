@@ -1,1 +1,1 @@
-ping.exe AJ-PC -n 1 > ping.txt
+ping.exe 172.24.10.116 -n 1 > ping.txt
