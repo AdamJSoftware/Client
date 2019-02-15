@@ -30,6 +30,7 @@ with open("Resources\Temporary_Files\IP_TO_SEND.txt", 'r') as f:
         with open(name, 'wb') as f:
             print('receiving data...')
             while True:
+
                 data = s.recv(1024)
                 if not data:
                     break
