@@ -211,8 +211,10 @@ def connected_to_network_func():
         return f
 
 
+
 def ip_to_send_func(Q):
-    Q = str(soc).rsplit("raddr=('", 1)[1]
+    print(Q)
+    Q = str(Q).rsplit("raddr=('", 1)[1]
     Q = str(Q).rsplit("',", 1)[0]
     print(Q)
     with open("Resources\Temporary_Files\IP_TO_SEND.txt", 'w') as f:
