@@ -88,8 +88,7 @@ class Starter(Thread):
     def run(self):
         global soc
         while self.running:
-            message = ""
-            while message != 'quit':
+            while True:
                 message = input(" -> ")
                 if message == "/send":
                     message = "--SENDING_FILE--"
@@ -101,7 +100,7 @@ class Starter(Thread):
                     rm_func()
                 elif message.__contains__('/send to '):
                     message = message.split("/send to ")[1]
-                    print('Sending to -> ' + message)
+                    print(message)
                     message = "--SEND_TO--" + message
                     soc.sendall(message.encode("utf-8"))
                 elif message.__contains__('/wake '):
@@ -110,11 +109,6 @@ class Starter(Thread):
                     soc.sendall(message.encode("utf-8"))
                 else:
                     soc.sendall(message.encode("utf8"))
-            print('sending quit')
-            message = "--quit--"
-            soc.send(message.encode("utf-8"))
-            time.sleep(1)
-            return message
 
 
 class Receive(Starter):
@@ -188,24 +182,6 @@ class Checker(Thread):
                 else:
                     pass
 
-class Checker2(Thread):
-    global soc
-    global Ip
-
-    def __init__(self):
-        global soc
-        global Ip
-        Thread.__init__(self)
-
-    def run(self):
-        while True:
-            try:
-                with open("Resources\\Temporary_Files\\Client_Service.txt", "r") as f:
-                    f.read()
-                print('exiting service client')
-                os._exit(1)
-            except:
-                pass
 
 
 try:
@@ -264,14 +240,13 @@ def mac():
     mac = ':'.join(a + b for a, b in zip(mac[::2], mac[1::2]))
     return(mac)
 
+
 def main():
     f = open("Resources\Temporary_Files\\tmp.txt", "w+")
     f.close()
     c = Checker()
     a = Starter()
     b = Receive(a)
-    d = Checker2()
-    d.start()
     c.start()
     a.start()
     b.start()
