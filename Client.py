@@ -104,6 +104,7 @@ class Starter(Thread):
                     print('Sending to -> ' + message)
                     message = "--SEND_TO--" + message
                     soc.sendall(message.encode("utf-8"))
+
                 elif message.__contains__('/wake '):
                     message = message.split('/wake ')[1]
                     message = "--WAKE--" + message
