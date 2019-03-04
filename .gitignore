@@ -7,3 +7,8 @@ venv
 *.txt
 *.txt
 *.txt
+*.pyc
+*.xml
+*.txt
+Resources/Temporary_files/Current_Network.txt
+Resources/Temporary_files/Saved_Network.txt
