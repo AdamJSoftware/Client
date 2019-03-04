@@ -7,3 +7,11 @@ venv
 *.txt
 *.txt
 *.txt
+*.txt
+Main - UI.bat
+Main.bat
+Resources/ping.bat
+Resources/ping.bat
+Resources/Temporary_files/Current_Network.txt
+Resources/Temporary_files/IP.txt
+Resources/Temporary_files/Saved_Network.txt
