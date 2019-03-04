@@ -1,1 +1,1 @@
-ping.exe DESKTOP-86JA7C0 -n 1 > Resources\Temporary_Files\ping.txt
+ping.exe AJ-PC -n 1 > Resources\Temporary_Files\ping.txt

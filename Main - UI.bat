@@ -1,2 +1,2 @@
-cd C:\Users\Adam-PC\PycharmProjects\Client\Client
+cd C:\Users\Gaming-PC\Documents\GitHub\Client
 py "Main - UI.py"
