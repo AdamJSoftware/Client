@@ -9,6 +9,7 @@ FNULL = open(os.devnull, 'w')
 def connected_to_network():
     subprocess.run("Resources\Current_Network.bat", stdout= FNULL)
     with open("Resources\Temporary_Files\Current_Network.txt", encoding="(utf-16") as f:
+        ffull = f.read()
         f = f.read()
         if f != "":
             f = f.split('\n')[0]
@@ -16,7 +17,7 @@ def connected_to_network():
         else:
             f = ""
     SN = sn_func()
-    if f == SN or SN == "Insert SSID":
+    if f == SN or ffull.__contains__(SN) or SN == "Insert SSID":
         return True
     else:
         return False

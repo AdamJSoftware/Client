@@ -150,7 +150,10 @@ class Receive(Starter):
                         time.sleep(.1)
             except:
                 print('server closed')
-                os.remove("Resources\Temporary_Files\\tmp.txt")
+                try:
+                    os.remove("Resources\Temporary_Files\\tmp.txt")
+                except:
+                    pass
                 os._exit(1)
                 return
 
@@ -176,7 +179,10 @@ class Checker(Thread):
                     file = file.read()
                 if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
                     print('Lost connection to server (ping)')
-                    os.remove("Resources\Temporary_Files\\tmp.txt")
+                    try:
+                        os.remove("Resources\Temporary_Files\\tmp.txt")
+                    except:
+                        pass
                     os._exit(1)
                     return
                 else:

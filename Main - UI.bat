@@ -1,2 +1,2 @@
-cd C:\Users\Gaming-PC\Documents\GitHub\Client
+cd %~dp0
 py "Main - UI.py"
