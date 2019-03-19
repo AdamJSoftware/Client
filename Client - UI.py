@@ -65,7 +65,7 @@ class Starter(Thread):
         else:
             host = Ip
             print("Connecting to -> " + host)
-            while connected == False:
+            while connected is False:
                 try:
                     soc.connect((host, port))
                     print("Successfully connected to server")
@@ -83,7 +83,7 @@ class Starter(Thread):
                     soc.sendall(newmessage.encode("utf-8"))
                     connected = True
                 except:
-                    pass
+                    print('an error occured while connecting')
 
     def run(self):
         global soc
@@ -188,6 +188,25 @@ class Checker(Thread):
                 else:
                     pass
 
+class Checker2(Thread):
+
+    def __init__(self):
+
+        Thread.__init__(self)
+
+    def run(self):
+        while True:
+            time.sleep(7)
+            with open("Resources\Temporary_Files\Current_Network.txt", encoding="(utf-16") as f:
+                f = f.read()
+                if f != "":
+                    pass
+                else:
+                    try:
+                        os.remove("Resources\Temporary_Files\\tmp.txt")
+                    except:
+                        pass
+                    os._exit(1)
 
 
 try:
@@ -197,6 +216,7 @@ except:
     print("Server IP not found... Creating new log")
     open("Resources\Temporary_Files\IP.txt", 'w')
     new_IP = True
+
 
 
 def rm_func():
@@ -253,9 +273,11 @@ def main():
     c = Checker()
     a = Starter()
     b = Receive(a)
+    e = Checker2()
     c.start()
     a.start()
     b.start()
+    e.start()
 
 
 if __name__ == '__main__':
