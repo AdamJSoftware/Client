@@ -83,7 +83,7 @@ class Starter(Thread):
                     soc.sendall(newmessage.encode("utf-8"))
                     connected = True
                 except:
-                    print('an error occured while connecting')
+                    pass
 
     def run(self):
         global soc
@@ -188,26 +188,6 @@ class Checker(Thread):
                 else:
                     pass
 
-class Checker2(Thread):
-
-    def __init__(self):
-
-        Thread.__init__(self)
-
-    def run(self):
-        while True:
-            time.sleep(7)
-            with open("Resources\Temporary_Files\Current_Network.txt", encoding="(utf-16") as f:
-                f = f.read()
-                if f != "":
-                    pass
-                else:
-                    try:
-                        os.remove("Resources\Temporary_Files\\tmp.txt")
-                    except:
-                        pass
-                    os._exit(1)
-
 
 try:
     with open("Resources\Temporary_Files\IP.txt", "r") as IP:
@@ -236,6 +216,7 @@ def connected_to_network_func():
     with open("Resources\Temporary_Files\Current_Network.txt", encoding="utf-16") as f:
         f = f.read()
         f = f.split('\n')[0]
+        global CN
         return f
 
 
@@ -258,6 +239,12 @@ def network_func():
             return False
 
 
+def saved_network():
+    with open("Resources\Temporary_Files\Saved_Network.txt") as f:
+        f = f.read()
+        return f
+
+
 def mac():
     mac = hex(uuid.getnode())
     mac = str(mac)
@@ -271,13 +258,12 @@ def main():
     f = open("Resources\Temporary_Files\\tmp.txt", "w+")
     f.close()
     c = Checker()
+    c.start()
     a = Starter()
     b = Receive(a)
-    e = Checker2()
-    c.start()
     a.start()
     b.start()
-    e.start()
+
 
 
 if __name__ == '__main__':
