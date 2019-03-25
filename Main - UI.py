@@ -70,6 +70,15 @@ except:
     with open("Resources\Temporary_Files\Saved_Network.txt", "w") as f:
         f.write("Insert SSID")
 
+try:
+    f = open("Resources\Backup.txt")
+    f.read()
+except:
+    print("Resetting saved network")
+    with open("Resources\Backup.txt", "w") as f:
+        f.write("")
+
+
 
 if __name__ == '__main__':
     with open("Resources\Temporary_Files\Client_Service.txt", "w+") as f:

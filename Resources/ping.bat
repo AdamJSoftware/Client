@@ -1,1 +1,1 @@
-ping.exe 172.24.10.114 -n 1 > Resources\Temporary_Files\ping.txt
+ping.exe AJ-PC -n 1 > Resources\Temporary_Files\ping.txt
