@@ -11,7 +11,7 @@ global Ip
 
 FNULL = open(os.devnull, 'w')
 
-new_IP = Falsef
+new_IP = False
 
 
 class Starter(Thread):

@@ -1,10 +1,14 @@
 import os
+import sys
 import socket
 import subprocess
 import time
 import uuid
+from Scripts import Get
+from Scripts import File_Sender
+from Scripts import BackupEngine
+from Scripts import BackupSyncEngine
 from threading import Thread
-
 global soc
 global new_IP
 global Ip
@@ -12,6 +16,14 @@ global Ip
 FNULL = open(os.devnull, 'w')
 
 new_IP = False
+
+
+class Network(Thread):
+    def __init__(self):
+        Thread.__init__()
+
+    def run(self):
+        subprocess.run("Resources\Current_Network.bat")
 
 
 class Starter(Thread):
@@ -33,7 +45,6 @@ class Starter(Thread):
 
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         port = 8888
-
         j = True
         if new_IP == True:
             first_try = False
@@ -93,7 +104,7 @@ class Starter(Thread):
                 if message == "/send":
                     message = "--SENDING_FILE--"
                     soc.sendall(message.encode("utf8"))
-                    os.system('File_Sender.py')
+                    File_Sender.main()
                 elif message == "/rm":
                     rm_message = '--RM--'
                     soc.sendall(rm_message.encode("utf8"))
@@ -131,20 +142,27 @@ class Receive(Starter):
                         Q = soc
                         ip_to_send_func(Q)
                         print('recieving file...')
-                        os.system('Get.py')
+                        Get.main()
                     elif str(data).__contains__("--RM_MESSAGE--"):
                         data = data.split("--RM_MESSAGE--")[1]
                         print("RM: " + data)
                     elif str(data).__contains__("--SENDING_FILE_TO--"):
                         data = data.split("--SENDING_FILE_TO--")[1]
                         ip_to_send_func(data)
-                        os.system('Get.py')
+                        Get.main()
                     elif str(data).__contains__("--CLIENT_ID--"):
                         print('got adress')
                         data = data.split("--CLIENT_ID--")[1]
                         ip_to_send_func(data)
                         print('starting server')
-                        os.system('File_Sender.py')
+                        File_Sender.main()
+                    elif str(data).__contains__("||BACKUP||"):
+                        print("running backup")
+                        backup_func()
+                    elif str(data).__contains__("--GETFILES--"):
+                        print("Getting required files")
+                        GETFILES(soc)
+                        time.sleep(5)
                     else:
                         print('\n' + "Recieving message from server: " + data)
                         time.sleep(.1)
@@ -188,8 +206,8 @@ class Checker(Thread):
                 else:
                     pass
 
-class Checker2(Thread):
 
+class Checker2(Thread):
     def __init__(self):
 
         Thread.__init__(self)
@@ -218,7 +236,6 @@ except:
     new_IP = True
 
 
-
 def rm_func():
     print('starting remote')
     message = ""
@@ -232,12 +249,14 @@ def rm_func():
 
 
 def connected_to_network_func():
-    subprocess.run("Resources\Current_Network.bat", stdout=FNULL)
-    with open("Resources\Temporary_Files\Current_Network.txt", encoding="utf-16") as f:
-        f = f.read()
-        f = f.split('\n')[0]
-        return f
-
+    while True:
+        try:
+            with open("Resources\Temporary_Files\Current_Network.txt", encoding="utf-16") as f:
+                f = f.read()
+            f = f.split('\n')[0]
+            return f
+        except:
+            pass
 
 
 def ip_to_send_func(Q):
@@ -267,6 +286,29 @@ def mac():
     return(mac)
 
 
+def backup_func():
+    global soc
+    BackupEngine.main()
+    File_Sender.backup_send("Resources\\Backup2.txt")
+
+def GETFILES(soc):
+    Get.GETFILES()
+    BackupSyncEngine.main()
+    with open("Resources\\FTS.txt", "r", encoding="utf-8-sig") as f:
+        f = f.readlines()
+    print('finished reading FTS')
+    for index, file in enumerate(f):
+        if file.__contains__("C:\\Users"):
+            time.sleep(1)
+            print('SENDING BACKUP FILE: ' + str(file))
+            message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
+            message = message.encode("utf-8")
+            soc.send(message)
+            print('sent message')
+            File_Sender.send_backup_files(file, f[index + 1])
+
+
+
 def main():
     f = open("Resources\Temporary_Files\\tmp.txt", "w+")
     f.close()
@@ -274,7 +316,7 @@ def main():
     a = Starter()
     b = Receive(a)
     e = Checker2()
-    c.start()
+    # c.start()
     a.start()
     b.start()
     e.start()
