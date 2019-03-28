@@ -15,8 +15,15 @@ def OG(files):
             OG.append(newlines)
         except:
             pass
-    print(OG)
-    return OG
+
+    newOG = []
+    for num in OG:
+        if num not in newOG:
+            newOG.append(num)
+
+    print('NEW OG')
+    print(newOG)
+    return newOG
 
 
 def backup2(filesAndSize, og):
@@ -25,9 +32,14 @@ def backup2(filesAndSize, og):
         file = file.rsplit("\\", 1)[0]
         print("FILE " + file)
         newog.append(file)
+    newOG = []
+    for num in newog:
+        if num not in newOG:
+            newOG.append(num)
     newlist = []
     for files in filesAndSize:
-        for remv in newog:
+        i = True
+        for remv in newOG:
             if str(files).__contains__(remv) or str(files) == remv:
                 files = str(files).replace(remv, str(""))
                 firstchar = files[:1]
@@ -35,8 +47,9 @@ def backup2(filesAndSize, og):
                     newfile = files[1:]
                     newlist.append(newfile)
             if str(files).__contains__("["):
-                newlist.append(files)
-
+                if i:
+                    newlist.append(files)
+                    i = False
 
     for lines in newlist:
         if lines == "\n":
@@ -84,12 +97,15 @@ def folderorfile(file, filesAndSize, files):
 def files_to_scan_func(i):
     with open("Resources\Backup.txt", "r", encoding="utf-8-sig") as f:
         og = OG(f.readlines())
+        print(og)
 
     with open("Resources\Backup.txt", "r", encoding="utf-8-sig") as f:
         filesAndSize = []
         filesToExculde = []
         f = f.readlines()
+
         files = f
+        print(files)
 
     for file in files:
         try:
