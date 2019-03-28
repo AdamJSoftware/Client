@@ -15,27 +15,36 @@ def OG(files):
             OG.append(newlines)
         except:
             pass
+    print(OG)
     return OG
 
 
 def backup2(filesAndSize, og):
-    # print("OG2" + str(OG))
+    newog = []
+    for file in og:
+        file = file.rsplit("\\", 1)[0]
+        print("FILE " + file)
+        newog.append(file)
     newlist = []
     for files in filesAndSize:
-        for remv in og:
-            if str(files).__contains__(remv):
-                newfile = str(files).replace(remv, str(""))
-                firstchar = newfile[:1]
+        for remv in newog:
+            if str(files).__contains__(remv) or str(files) == remv:
+                files = str(files).replace(remv, str(""))
+                firstchar = files[:1]
                 if firstchar =='\\':
-                    newfile = newfile[1:]
+                    newfile = files[1:]
                     newlist.append(newfile)
-            else:
+            if str(files).__contains__("["):
                 newlist.append(files)
+
 
     for lines in newlist:
         if lines == "\n":
             newlist.remove(lines)
             print("REMOVED")
+
+    for lines in newlist:
+        print(lines)
 
     return newlist
 

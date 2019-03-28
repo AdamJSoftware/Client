@@ -75,7 +75,6 @@ def send_backup_files(path, name):
         path = path.split("\n")[0]
     except:
         pass
-
     print(path)
     with open(path, 'rb') as f:
         print('read')

