@@ -12,7 +12,9 @@ from threading import Thread
 global soc
 global new_IP
 global Ip
+global officialy_connected
 
+officialy_connected = False
 FNULL = open(os.devnull, 'w')
 
 new_IP = False
@@ -31,6 +33,7 @@ class Starter(Thread):
     global new_IP
     global Ip
     global connected
+    global officialy_connected
 
     def __init__(self):
         global soc
@@ -38,6 +41,7 @@ class Starter(Thread):
         connected = False
         global Ip
         global new_IP
+        global officialy_connected
         host = ""
         Thread.__init__(self)
         print("First thread initialized. Starting connection with server")
@@ -61,9 +65,8 @@ class Starter(Thread):
                     print("Successfully connected to server")
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    macaddress = mac()
-                    newmessage = "--PCNAME--||" + message + "||" + macaddress
-                    soc.sendall(newmessage.encode("utf-8"))
+                    i = CheckIfNameSent()
+                    i.start()
                     with open("Resources\Temporary_Files\IP.txt", 'w') as f:
                         f.write(host)
                     j = False
@@ -89,12 +92,11 @@ class Starter(Thread):
                         pass
                     message = socket.gethostname()
                     macaddress = mac()
-                    print("Client hostname -> " + message)
-                    newmessage = "--PCNAME--||" + message + "||" + macaddress
-                    soc.sendall(newmessage.encode("utf-8"))
+                    i = CheckIfNameSent()
+                    i.start()
                     connected = True
                 except:
-                    print('an error occured while connecting')
+                    pass
 
     def run(self):
         global soc
@@ -118,6 +120,9 @@ class Starter(Thread):
                     message = message.split('/wake ')[1]
                     message = "--WAKE--" + message
                     soc.sendall(message.encode("utf-8"))
+                elif message == ('/backup'):
+                    message = "--BACKUP--"
+                    soc.sendall(message.encode("utf-8"))
                 else:
                     soc.sendall(message.encode("utf8"))
 
@@ -140,20 +145,20 @@ class Receive(Starter):
                         print('lost connection')
                     elif str(data) == "--SENDING_FILE--":
                         Q = soc
-                        ip_to_send_func(Q)
                         print('recieving file...')
-                        Get.main()
+                        s = get_ip_from_sock(soc)
+                        print(s)
+                        Get.main(s)
                     elif str(data).__contains__("--RM_MESSAGE--"):
                         data = data.split("--RM_MESSAGE--")[1]
                         print("RM: " + data)
                     elif str(data).__contains__("--SENDING_FILE_TO--"):
                         data = data.split("--SENDING_FILE_TO--")[1]
-                        ip_to_send_func(data)
-                        Get.main()
+                        s = get_ip_from_sock(data)
+                        Get.main(s)
                     elif str(data).__contains__("--CLIENT_ID--"):
                         print('got adress')
                         data = data.split("--CLIENT_ID--")[1]
-                        ip_to_send_func(data)
                         print('starting server')
                         File_Sender.main()
                     elif str(data).__contains__("||BACKUP||"):
@@ -162,12 +167,12 @@ class Receive(Starter):
                     elif str(data).__contains__("--GETFILES--"):
                         print("Getting required files")
                         GETFILES(soc)
-                        time.sleep(5)
                     else:
                         print('\n' + "Recieving message from server: " + data)
                         time.sleep(.1)
-            except:
+            except Exception as e:
                 print('server closed')
+                print(str(e))
                 try:
                     os.remove("Resources\Temporary_Files\\tmp.txt")
                 except:
@@ -227,6 +232,19 @@ class Checker2(Thread):
                     os._exit(1)
 
 
+class CheckIfNameSent(Thread):
+    global soc
+    global officialy_connected
+    def __init__(self):
+        Thread.__init__(self)
+
+    def run(self):
+        message = socket.gethostname()
+        macaddress = mac()
+        newmessage = "--PCNAME--||" + message + "||" + macaddress
+        soc.sendall(newmessage.encode("utf-8"))
+
+
 try:
     with open("Resources\Temporary_Files\IP.txt", "r") as IP:
         Ip = IP.readline()
@@ -264,8 +282,7 @@ def ip_to_send_func(Q):
     Q = str(Q).rsplit("raddr=('", 1)[1]
     Q = str(Q).rsplit("',", 1)[0]
     print(Q)
-    with open("Resources\Temporary_Files\IP_TO_SEND.txt", 'w') as f:
-        f.write(Q)
+    return Q
 
 
 def network_func():
@@ -291,8 +308,15 @@ def backup_func():
     BackupEngine.main()
     File_Sender.backup_send("Resources\\Backup2.txt")
 
+def get_ip_from_sock(sock):
+    sock = str(sock).rsplit("raddr=('", 1)[1]
+    sock = str(sock).rsplit("',", 1)[0]
+    return sock
+
+
 def GETFILES(soc):
-    Get.GETFILES()
+    s = get_ip_from_sock(soc)
+    Get.GETFILES(s)
     BackupSyncEngine.main()
     with open("Resources\\FTS.txt", "r", encoding="utf-8-sig") as f:
         f = f.readlines()
@@ -300,7 +324,6 @@ def GETFILES(soc):
     for index, file in enumerate(f):
         if file.__contains__("C:\\Users"):
             time.sleep(1)
-
             message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
             message = message.encode("utf-8")
             soc.send(message)
