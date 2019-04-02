@@ -12,8 +12,9 @@ def main(IP_TO_SEND):
     try:
         s.connect((host, port))
         print('started reciever')
-    except:
+    except Exception as e:
         print('Started twice... exiting')
+        print(e)
         sys.exit()
     name = s.recv(1024)
     with open(name, 'wb') as f:

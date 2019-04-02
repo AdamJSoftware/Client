@@ -107,10 +107,6 @@ class Starter(Thread):
                     message = "--SENDING_FILE--"
                     soc.sendall(message.encode("utf8"))
                     File_Sender.main()
-                elif message == "/rm":
-                    rm_message = '--RM--'
-                    soc.sendall(rm_message.encode("utf8"))
-                    rm_func()
                 elif message.__contains__('/send to '):
                     message = message.split("/send to ")[1]
                     print(message)
@@ -160,7 +156,7 @@ class Receive(Starter):
                         print('got adress')
                         data = data.split("--CLIENT_ID--")[1]
                         print('starting server')
-                        File_Sender.main()
+                        subprocess.call(["python.exe", "Scripts\\File_Sender_2.py"])
                     elif str(data).__contains__("||BACKUP||"):
                         print("running backup")
                         backup_func()
@@ -252,18 +248,6 @@ except:
     print("Server IP not found... Creating new log")
     open("Resources\Temporary_Files\IP.txt", 'w')
     new_IP = True
-
-
-def rm_func():
-    print('starting remote')
-    message = ""
-    while message != "/back":
-        message = input(" -> ")
-        if message == "/send":
-            print('Please select what computer you would like to send a file:')
-        elif message.__contains__("/send "):
-            soc.send(message.encode("utf-8"))
-        soc.sendall(message.encode("utf8"))
 
 
 def connected_to_network_func():

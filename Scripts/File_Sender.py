@@ -1,9 +1,9 @@
-import socket
-from tkinter import filedialog
-import time
 
 
 def main():
+    import socket
+    from tkinter import filedialog
+
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
@@ -28,6 +28,8 @@ def main():
     conn.close()
 
 def backup_send(path):
+    import socket
+    import time
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
@@ -53,6 +55,8 @@ def backup_send(path):
     conn.close()
 
 def send_backup_files(path, name):
+    import socket
+    import time
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
@@ -85,5 +89,7 @@ def send_backup_files(path, name):
     print('Done sending')
     conn.close()
 
+
 if __name__ == '__main__':
+    print('got to here')
     main()
