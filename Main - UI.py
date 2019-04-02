@@ -3,7 +3,7 @@ import subprocess
 import time
 from threading import Thread
 
-FNULL = open(os.devnull, 'w')
+null = open(os.devnull, 'w')
 
 
 class Check(Thread):
@@ -11,7 +11,7 @@ class Check(Thread):
         Thread.__init__(self)
 
     def run(self):
-        subprocess.run("Resources\Current_Network.bat", stdout=FNULL)
+        subprocess.run("Resources\\Current_Network.bat", stdout=null)
 
 
 class Default(Thread):
@@ -20,7 +20,7 @@ class Default(Thread):
 
     def run(self):
         while True:
-            if os.path.isfile("Resources\Temporary_Files\\tmp.txt"):
+            if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
                 pass
             else:
                 if connected_to_network() is True:
@@ -29,60 +29,53 @@ class Default(Thread):
                     os.system('cls')
                     print('Connection lost to server...')
                     print('Waiting for connection to the internet...')
-                    SN = sn_func()
-                    print("Current Server Network -> " + SN)
+                    sn = sn_func()
+                    print("Current Server Network -> " + sn)
                 else:
                     time.sleep(5)
 
 
 def connected_to_network():
-    with open("Resources\Temporary_Files\Current_Network.txt", encoding="(utf-16") as f:
-        ffull = f.read()
-        f = f.read()
-        if f != "":
-            f = f.split('\n')[0]
-            print("Currently connected to -> " + f)
+    with open("Resources\\Temporary_Files\\Current_Network.txt", encoding="(utf-16") as file:
+        f_full = file.read()
+        current_network = file.read()
+        if current_network != "":
+            current_network = current_network.split('\n')[0]
+            print("Currently connected to -> " + current_network)
         else:
-            f = ""
-    SN = sn_func()
-    if f == SN or ffull.__contains__(SN) or SN == "Insert SSID":
+            current_network = ""
+    sn = sn_func()
+    if current_network == sn or f_full.__contains__(sn) or sn == "Insert SSID":
         return True
     else:
         return False
 
 
 def sn_func():
-    with open("Resources\Temporary_Files\Saved_Network.txt") as SN:
-        SN = SN.read()
-        return SN
+    with open("Resources\\Temporary_Files\\Saved_Network.txt") as SN:
+        sn = SN.read()
+        return sn
 
 
-try:
-    os.remove("Resources\Temporary_Files\\tmp.txt")
-except:
+def create_resource_file(file_name, print_text, text):
+    if os.path.isfile("Resources\\" + file_name):
+        pass
+    else:
+        print("SYSTEM: Creating " + print_text + "...")
+        with open("Resources\\" + file_name, "w+") as file_to_create:
+            file_to_create.write(text)
+
+
+if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
+    os.remove("Resources\\Temporary_Files\\tmp.txt")
+else:
     pass
-
-try:
-    f = open("Resources\Temporary_Files\Saved_Network.txt")
-    f.read()
-except:
-    print("Resetting saved network")
-    with open("Resources\Temporary_Files\Saved_Network.txt", "w") as f:
-        f.write("Insert SSID")
-
-try:
-    f = open("Resources\Backup.txt")
-    f.read()
-except:
-    print("Resetting saved network")
-    with open("Resources\Backup.txt", "w") as f:
-        f.write("")
-
 
 
 if __name__ == '__main__':
-    with open("Resources\Temporary_Files\Client_Service.txt", "w+") as f:
-        f.write("test")
+    create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
+    create_resource_file("Backup.txt", "Backup Log", "")
+    create_resource_file("Client_Service.txt", "Client Service", "test")
     time.sleep(5)
     a = Default()
     b = Check()

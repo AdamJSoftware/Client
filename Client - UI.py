@@ -12,9 +12,6 @@ from threading import Thread
 global soc
 global new_IP
 global Ip
-global officialy_connected
-
-officialy_connected = False
 FNULL = open(os.devnull, 'w')
 
 new_IP = False
@@ -22,10 +19,10 @@ new_IP = False
 
 class Network(Thread):
     def __init__(self):
-        Thread.__init__()
+        Thread.__init__(self)
 
     def run(self):
-        subprocess.run("Resources\Current_Network.bat")
+        subprocess.run("Resources\\Current_Network.bat")
 
 
 class Starter(Thread):
@@ -33,7 +30,6 @@ class Starter(Thread):
     global new_IP
     global Ip
     global connected
-    global officialy_connected
 
     def __init__(self):
         global soc
@@ -41,7 +37,6 @@ class Starter(Thread):
         connected = False
         global Ip
         global new_IP
-        global officialy_connected
         host = ""
         Thread.__init__(self)
         print("First thread initialized. Starting connection with server")
@@ -50,13 +45,13 @@ class Starter(Thread):
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         port = 8888
         j = True
-        if new_IP == True:
+        if new_IP is True:
             first_try = False
-            while j == True:
+            while j is True:
                 if first_try is False:
-                    Q = input('Input the IP ADDRESS presented on the server screen until one of them works\n')
-                    host = Q
-                    Ip = Q
+                    user_input = input('Input the IP ADDRESS presented on the server screen until one of them works\n')
+                    host = user_input
+                    Ip = user_input
                 else:
                     pass
                 try:
@@ -65,9 +60,9 @@ class Starter(Thread):
                     print("Successfully connected to server")
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    i = CheckIfNameSent()
+                    i = CheckIfNameSent(soc)
                     i.start()
-                    with open("Resources\Temporary_Files\IP.txt", 'w') as f:
+                    with open("Resources\\Temporary_Files\\IP.txt", 'w') as f:
                         f.write(host)
                     j = False
                 except:
@@ -83,19 +78,20 @@ class Starter(Thread):
                 try:
                     soc.connect((host, port))
                     print("Successfully connected to server")
+                    message = socket.gethostname()
+                    print("Client hostname -> " + message)
                     if network_func() is True:
-                        SSID = connected_to_network_func()
-                        print("Adding -> " + SSID + " as server network")
-                        with open('Resources\Temporary_Files\Saved_Network.txt', 'w') as f:
-                            f.write(SSID)
+                        ssid = connected_to_network_func()
+                        print("Adding -> " + ssid + " as server network")
+                        with open('Resources\\Temporary_Files\\Saved_Network.txt', 'w') as f:
+                            f.write(ssid)
                     else:
                         pass
-                    message = socket.gethostname()
-                    macaddress = mac()
-                    i = CheckIfNameSent()
+                    i = CheckIfNameSent(soc)
                     i.start()
                     connected = True
-                except:
+                except Exception as e:
+                    print(e)
                     pass
 
     def run(self):
@@ -116,7 +112,7 @@ class Starter(Thread):
                     message = message.split('/wake ')[1]
                     message = "--WAKE--" + message
                     soc.sendall(message.encode("utf-8"))
-                elif message == ('/backup'):
+                elif message == '/backup':
                     message = "--BACKUP--"
                     soc.sendall(message.encode("utf-8"))
                 else:
@@ -153,24 +149,24 @@ class Receive(Starter):
                         s = get_ip_from_sock(data)
                         Get.main(s)
                     elif str(data).__contains__("--CLIENT_ID--"):
-                        print('got adress')
-                        data = data.split("--CLIENT_ID--")[1]
+                        print('got address')
+                        # data = data.split("--CLIENT_ID--")[1]
                         print('starting server')
-                        subprocess.call(["python.exe", "Scripts\\File_Sender_2.py"])
+                        subprocess.call(["python.exe", "Scripts\\File_Sender.py"])
                     elif str(data).__contains__("||BACKUP||"):
                         print("running backup")
                         backup_func()
                     elif str(data).__contains__("--GETFILES--"):
                         print("Getting required files")
-                        GETFILES(soc)
+                        get_files(soc)
                     else:
-                        print('\n' + "Recieving message from server: " + data)
+                        print('\n' + "Receiving message from server: " + data)
                         time.sleep(.1)
             except Exception as e:
                 print('server closed')
                 print(str(e))
                 try:
-                    os.remove("Resources\Temporary_Files\\tmp.txt")
+                    os.remove("Resources\\Temporary_Files\\tmp.txt")
                 except:
                     pass
                 os._exit(1)
@@ -189,17 +185,17 @@ class Checker(Thread):
     def run(self):
         global soc
         global Ip
-        with open("Resources\ping.bat", "w+") as ping:
-            ping.write("ping.exe " + Ip + " -n 1 > Resources\Temporary_Files\ping.txt")
+        with open("Resources\\ping.bat", "w+") as ping:
+            ping.write("ping.exe " + Ip + " -n 1 > Resources\\Temporary_Files\\ping.txt")
         while True:
             while True:
-                subprocess.run("Resources\ping.bat", stdout=FNULL)
-                with open("Resources\Temporary_Files\\ping.txt", "r") as file:
+                subprocess.run("Resources\\ping.bat", stdout=FNULL)
+                with open("Resources\\Temporary_Files\\ping.txt", "r") as file:
                     file = file.read()
                 if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
                     print('Lost connection to server (ping)')
                     try:
-                        os.remove("Resources\Temporary_Files\\tmp.txt")
+                        os.remove("Resources\\Temporary_Files\\tmp.txt")
                     except:
                         pass
                     os._exit(1)
@@ -216,44 +212,43 @@ class Checker2(Thread):
     def run(self):
         while True:
             time.sleep(7)
-            with open("Resources\Temporary_Files\Current_Network.txt", encoding="(utf-16") as f:
+            with open("Resources\\Temporary_Files\\Current_Network.txt", encoding="(utf-16") as f:
                 f = f.read()
                 if f != "":
                     pass
                 else:
                     try:
-                        os.remove("Resources\Temporary_Files\\tmp.txt")
+                        os.remove("Resources\\Temporary_Files\\tmp.txt")
                     except:
                         pass
                     os._exit(1)
 
 
 class CheckIfNameSent(Thread):
-    global soc
-    global officialy_connected
-    def __init__(self):
+    def __init__(self, server_socket):
         Thread.__init__(self)
+        self.server_socket = server_socket
 
     def run(self):
-        message = socket.gethostname()
-        macaddress = mac()
-        newmessage = "--PCNAME--||" + message + "||" + macaddress
-        soc.sendall(newmessage.encode("utf-8"))
+        hostname = socket.gethostname()
+        mac_address = mac_func()
+        message_to_send = "--PCNAME--||" + hostname + "||" + mac_address
+        self.server_socket.sendall(message_to_send.encode("utf-8"))
 
 
 try:
-    with open("Resources\Temporary_Files\IP.txt", "r") as IP:
+    with open("Resources\\Temporary_Files\\IP.txt", "r") as IP:
         Ip = IP.readline()
 except:
     print("Server IP not found... Creating new log")
-    open("Resources\Temporary_Files\IP.txt", 'w')
+    open("Resources\\Temporary_Files\\IP.txt", 'w')
     new_IP = True
 
 
 def connected_to_network_func():
     while True:
         try:
-            with open("Resources\Temporary_Files\Current_Network.txt", encoding="utf-16") as f:
+            with open("Resources\\Temporary_Files\\Current_Network.txt", encoding="utf-16") as f:
                 f = f.read()
             f = f.split('\n')[0]
             return f
@@ -261,16 +256,16 @@ def connected_to_network_func():
             pass
 
 
-def ip_to_send_func(Q):
-    print(Q)
-    Q = str(Q).rsplit("raddr=('", 1)[1]
-    Q = str(Q).rsplit("',", 1)[0]
-    print(Q)
-    return Q
+def ip_to_send_func(pc_to_connect):
+    print(pc_to_connect)
+    pc_to_connect = str(pc_to_connect).rsplit("raddr=('", 1)[1]
+    pc_to_connect = str(pc_to_connect).rsplit("',", 1)[0]
+    print(pc_to_connect)
+    return pc_to_connect
 
 
 def network_func():
-    with open("Resources\Temporary_Files\Saved_Network.txt") as f:
+    with open("Resources\\Temporary_Files\\Saved_Network.txt") as f:
         f = f.read()
         if f == "Insert SSID":
             return True
@@ -278,13 +273,13 @@ def network_func():
             return False
 
 
-def mac():
-    mac = hex(uuid.getnode())
-    mac = str(mac)
-    mac = mac[2:]
-    mac = mac.upper()
-    mac = ':'.join(a + b for a, b in zip(mac[::2], mac[1::2]))
-    return(mac)
+def mac_func():
+    mac_address = hex(uuid.getnode())
+    mac_address = str(mac_address)
+    mac_address = mac_address[2:]
+    mac_address = mac_address.upper()
+    mac_address = ':'.join(a + b for a, b in zip(mac_address[::2], mac_address[1::2]))
+    return mac_address
 
 
 def backup_func():
@@ -292,13 +287,14 @@ def backup_func():
     BackupEngine.main()
     File_Sender.backup_send("Resources\\Backup2.txt")
 
+
 def get_ip_from_sock(sock):
     sock = str(sock).rsplit("raddr=('", 1)[1]
     sock = str(sock).rsplit("',", 1)[0]
     return sock
 
 
-def GETFILES(soc):
+def get_files(soc):
     s = get_ip_from_sock(soc)
     Get.GETFILES(s)
     BackupSyncEngine.main()
@@ -316,19 +312,18 @@ def GETFILES(soc):
                 file = file.split("\n")[0]
             except:
                 pass
-            otherfile = f[index + 1]
+            other_file = f[index + 1]
             try:
-                otherfile = otherfile.split("\n")[0]
+                other_file = other_file.split("\n")[0]
             except:
                 pass
             print('SENDING BACKUP FILE: ' + str(file))
-            print('SENDING NAME + ' + otherfile)
-            File_Sender.send_backup_files(file, otherfile)
-
+            print('SENDING NAME + ' + other_file)
+            File_Sender.send_backup_files(file, other_file)
 
 
 def main():
-    f = open("Resources\Temporary_Files\\tmp.txt", "w+")
+    f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
     f.close()
     c = Checker()
     a = Starter()
