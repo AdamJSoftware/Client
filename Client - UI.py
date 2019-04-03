@@ -1,5 +1,4 @@
 import os
-import sys
 import socket
 import subprocess
 import time
@@ -294,9 +293,9 @@ def get_ip_from_sock(sock):
     return sock
 
 
-def get_files(soc):
-    s = get_ip_from_sock(soc)
-    Get.GETFILES(s)
+def get_files(server_socket):
+    server_ip = get_ip_from_sock(server_socket)
+    Get.GETFILES(server_ip)
     BackupSyncEngine.main()
     with open("Resources\\FTS.txt", "r", encoding="utf-8-sig") as f:
         f = f.readlines()
