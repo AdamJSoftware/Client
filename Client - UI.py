@@ -9,11 +9,8 @@ from Scripts import BackupEngine
 from Scripts import BackupSyncEngine
 from threading import Thread
 global soc
-global new_IP
-global Ip
-FNULL = open(os.devnull, 'w')
 
-new_IP = False
+f_null = open(os.devnull, 'w')
 
 
 class Network(Thread):
@@ -26,16 +23,15 @@ class Network(Thread):
 
 class Starter(Thread):
     global soc
-    global new_IP
-    global Ip
     global connected
 
-    def __init__(self):
+    def __init__(self, new_ip, server_ip):
         global soc
         global connected
         connected = False
         global Ip
-        global new_IP
+        self.new_ip = new_ip
+        self.server_ip = server_ip
         host = ""
         Thread.__init__(self)
         print("First thread initialized. Starting connection with server")
@@ -44,7 +40,7 @@ class Starter(Thread):
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         port = 8888
         j = True
-        if new_IP is True:
+        if self.new_ip is True:
             first_try = False
             while j is True:
                 if first_try is False:
@@ -72,7 +68,7 @@ class Starter(Thread):
                     first_try = True
 
         else:
-            host = Ip
+            host = server_ip
             print("Connecting to -> " + host)
             while connected is False:
                 try:
@@ -189,7 +185,7 @@ class Checker(Thread):
             ping.write("ping.exe " + Ip + " -n 1 > Resources\\Temporary_Files\\ping.txt")
         while True:
             while True:
-                subprocess.run("Resources\\ping.bat", stdout=FNULL)
+                subprocess.run("Resources\\ping.bat", stdout=f_null)
                 with open("Resources\\Temporary_Files\\ping.txt", "r") as file:
                     file = file.read()
                 if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
@@ -236,14 +232,17 @@ class CheckIfNameSent(Thread):
         self.server_socket.sendall(message_to_send.encode("utf-8"))
 
 
-if os.path.isfile("Resources\\Temporary_Files\\IP.txt"):
-    with open("Resources\\Temporary_Files\\IP.txt", "r") as IP:
-        Ip = IP.readline()
-else:
-    print("SYSTEM: Creating IP log...")
-    with open("Resources\\Temporary_Files\\IP.txt", "w+") as file_to_create:
-        file_to_create.write("")
-    new_IP = True
+def check_for_ip():
+    if os.path.isfile("Resources\\Temporary_Files\\IP.txt"):
+        with open("Resources\\Temporary_Files\\IP.txt", "r") as IP:
+            server_ip = IP.readline()
+            return False, server_ip
+    else:
+        print("SYSTEM: Creating IP log...")
+        with open("Resources\\Temporary_Files\\IP.txt", "w+") as file_to_create:
+            file_to_create.write("")
+        server_ip = ""
+        return True, server_ip
 
 
 def connected_to_network_func():
@@ -341,7 +340,8 @@ def main():
     f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
     f.close()
     # c = Checker()
-    a = Starter()
+    new_ip, server_ip = check_for_ip()
+    a = Starter(new_ip, server_ip)
     b = Receive(a)
     e = Checker2()
     # c.start()
