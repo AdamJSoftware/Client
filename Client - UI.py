@@ -251,7 +251,7 @@ def connected_to_network_func():
                 f = f.read()
             f = f.split('\n')[0]
             return f
-        except:
+        except Exception as e:
             pass
 
 
@@ -324,7 +324,7 @@ def get_files(server_socket):
 def main():
     f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
     f.close()
-    c = Checker()
+    # c = Checker()
     a = Starter()
     b = Receive(a)
     e = Checker2()
