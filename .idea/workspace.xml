@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a18683f-ea47-4e6e-97b3-84bcc3d2eb4a" name="Default Changelist" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <change afterPath="$PROJECT_DIR$/Scripts/BackupEngine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/BackupSyncEngine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/File_Sender.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Get.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="6a18683f-ea47-4e6e-97b3-84bcc3d2eb4a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Client - UI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client - UI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main - UI.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Main - UI.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main - UI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main - UI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Main.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Current_Network.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Current_Network.ps1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Temporary_files/Current_Network.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Temporary_files/Current_Network.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Temporary_files/IP.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Temporary_files/IP.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Temporary_files/IP_TO_SEND.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Temporary_files/IP_TO_SEND.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/ping.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/ping.bat" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main - UI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="291">
+              <caret line="60" selection-start-line="60" selection-end-line="65" selection-end-column="38" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -46,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client - UI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="13" column="29" lean-forward="true" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+            <state relative-caret-position="2355">
+              <caret line="343" column="17" lean-forward="true" selection-start-line="343" selection-start-column="17" selection-end-line="343" selection-end-column="17" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -117,6 +102,7 @@
         <option value="$PROJECT_DIR$/Client/Scripts/test.py" />
         <option value="$PROJECT_DIR$/Client/Main - UI.py" />
         <option value="$PROJECT_DIR$/Client/Client - UI.py" />
+        <option value="$PROJECT_DIR$/Client - UI.py" />
       </list>
     </option>
   </component>
@@ -131,7 +117,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -143,11 +128,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Server/Server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Server" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -304,11 +290,19 @@
       <option name="project" value="LOCAL" />
       <updated>1553525463703</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
+      <created>1554312752674</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1554312752674</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.19484809" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -352,7 +346,8 @@
     <entry file="file://$PROJECT_DIR$/Client/Client - UI.py" />
     <entry file="file://$PROJECT_DIR$/Main - UI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="291">
+          <caret line="60" selection-start-line="60" selection-end-line="65" selection-end-column="38" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -361,8 +356,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client - UI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" column="29" lean-forward="true" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        <state relative-caret-position="2355">
+          <caret line="343" column="17" lean-forward="true" selection-start-line="343" selection-start-column="17" selection-end-line="343" selection-end-column="17" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

@@ -64,7 +64,8 @@ class Starter(Thread):
                     with open("Resources\\Temporary_Files\\IP.txt", 'w') as f:
                         f.write(host)
                     j = False
-                except:
+                except Exception as error:
+                    error_log(error)
                     os.system('cls')
                     Q = input("Try the next IP ADDRESS:\n")
                     host = Q
@@ -164,9 +165,9 @@ class Receive(Starter):
             except Exception as e:
                 print('server closed')
                 print(str(e))
-                try:
+                if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
                     os.remove("Resources\\Temporary_Files\\tmp.txt")
-                except:
+                else:
                     pass
                 os._exit(1)
                 return
@@ -193,9 +194,9 @@ class Checker(Thread):
                     file = file.read()
                 if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
                     print('Lost connection to server (ping)')
-                    try:
+                    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
                         os.remove("Resources\\Temporary_Files\\tmp.txt")
-                    except:
+                    else:
                         pass
                     os._exit(1)
                     return
@@ -216,9 +217,9 @@ class Checker2(Thread):
                 if f != "":
                     pass
                 else:
-                    try:
+                    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
                         os.remove("Resources\\Temporary_Files\\tmp.txt")
-                    except:
+                    else:
                         pass
                     os._exit(1)
 
@@ -235,12 +236,13 @@ class CheckIfNameSent(Thread):
         self.server_socket.sendall(message_to_send.encode("utf-8"))
 
 
-try:
+if os.path.isfile("Resources\\Temporary_Files\\IP.txt"):
     with open("Resources\\Temporary_Files\\IP.txt", "r") as IP:
         Ip = IP.readline()
-except:
-    print("Server IP not found... Creating new log")
-    open("Resources\\Temporary_Files\\IP.txt", 'w')
+else:
+    print("SYSTEM: Creating IP log...")
+    with open("Resources\\Temporary_Files\\IP.txt", "w+") as file_to_create:
+        file_to_create.write("")
     new_IP = True
 
 
@@ -251,7 +253,8 @@ def connected_to_network_func():
                 f = f.read()
             f = f.split('\n')[0]
             return f
-        except Exception as e:
+        except Exception as error:
+            error_print("Couldn't read Current_Network.txt", error)
             pass
 
 
@@ -309,16 +312,29 @@ def get_files(server_socket):
             print('sent message')
             try:
                 file = file.split("\n")[0]
-            except:
+            except Exception as error:
+                error_print("Error while reading FTS", error)
+                error_log(error)
                 pass
             other_file = f[index + 1]
             try:
                 other_file = other_file.split("\n")[0]
-            except:
-                pass
+            except Exception as error:
+                error_print("Error while reading FTS", error)
+                error_log(error)
             print('SENDING BACKUP FILE: ' + str(file))
             print('SENDING NAME + ' + other_file)
             File_Sender.send_backup_files(file, other_file)
+
+
+def error_log(error):
+    with open("Resources\\ErrorLog.txt", 'a') as file:
+        file.write(time.ctime() + "\n")
+        file.write(str(error) + "\n" + "\n")
+
+
+def error_print(error_message, error):
+    print("SYSTEM ERROR - " + error_message + ": " + str(error))
 
 
 def main():
