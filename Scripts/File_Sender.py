@@ -3,6 +3,11 @@ from tkinter import filedialog
 import time
 
 
+def error_log(error):
+    with open("Resources\\ErrorLog.txt", 'a') as file:
+        file.write(time.ctime() + "\n")
+        file.write(str(error) + "\n" + "\n")
+
 def main():
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
@@ -12,8 +17,8 @@ def main():
 
     print('Server listening....')
 
-    conn, addr = s.accept()  # Establish connection with client.
-    print('Got connection from', addr)
+    conn, address = s.accept()  # Establish connection with client.
+    print('Got connection from', address)
     path = filedialog.askopenfilename()
     name = str(path).rsplit("/", 1)[1]
     name = name.encode("utf-8")
@@ -66,11 +71,12 @@ def send_backup_files(path, name):
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
     name = name.encode("utf-8")
-    try:
-        name = name.split("\n")[0]
-    except Exception as e:
-        print(e)
-        pass
+    # print(name)
+    # try:
+    #     name = name.split("\n")[0]
+    # except Exception as error:
+    #     error_log(error)
+    #     pass
     conn.send(name)
     time.sleep(2)
     print('finished sending name')

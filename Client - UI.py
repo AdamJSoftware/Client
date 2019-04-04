@@ -23,13 +23,10 @@ class Network(Thread):
 
 class Starter(Thread):
     global soc
-    global connected
 
     def __init__(self, new_ip, server_ip):
         global soc
-        global connected
         connected = False
-        global Ip
         self.new_ip = new_ip
         self.server_ip = server_ip
         host = ""
@@ -46,7 +43,6 @@ class Starter(Thread):
                 if first_try is False:
                     user_input = input('Input the IP ADDRESS presented on the server screen until one of them works\n')
                     host = user_input
-                    Ip = user_input
                 else:
                     pass
                 try:
@@ -63,8 +59,7 @@ class Starter(Thread):
                 except Exception as error:
                     error_log(error)
                     os.system('cls')
-                    Q = input("Try the next IP ADDRESS:\n")
-                    host = Q
+                    host = input("Try the next IP ADDRESS:\n")
                     first_try = True
 
         else:
@@ -86,39 +81,41 @@ class Starter(Thread):
                     i = CheckIfNameSent(soc)
                     i.start()
                     connected = True
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    error_log(error)
                     pass
 
     def run(self):
         global soc
         while self.running:
             while True:
-                message = input(" -> ")
-                if message == "/send":
+                user_input = input(" -> ")
+                if user_input == "/send":
                     message = "--SENDING_FILE--"
                     soc.sendall(message.encode("utf8"))
                     File_Sender.main()
-                elif message.__contains__('/send to '):
-                    message = message.split("/send to ")[1]
+                elif user_input.__contains__('/send to '):
+                    message = user_input.split("/send to ")[1]
                     print(message)
                     message = "--SEND_TO--" + message
                     soc.sendall(message.encode("utf-8"))
-                elif message.__contains__('/wake '):
-                    message = message.split('/wake ')[1]
+                elif user_input.__contains__('/wake '):
+                    message = user_input.split('/wake ')[1]
                     message = "--WAKE--" + message
                     soc.sendall(message.encode("utf-8"))
-                elif message == '/backup':
+                elif user_input == '/backup':
                     message = "--BACKUP--"
                     soc.sendall(message.encode("utf-8"))
+                elif user_input == "/cls":
+                    os.system('cls')
                 else:
-                    soc.sendall(message.encode("utf8"))
+                    soc.sendall(user_input.encode("utf8"))
 
 
 class Receive(Starter):
     global soc
 
-    def __init__(self, Starter):
+    def __init__(self):
         global soc
         Thread.__init__(self)
 
@@ -132,7 +129,6 @@ class Receive(Starter):
                         os._exit(1)
                         print('lost connection')
                     elif str(data) == "--SENDING_FILE--":
-                        Q = soc
                         print('recieving file...')
                         s = get_ip_from_sock(soc)
                         print(s)
@@ -170,37 +166,6 @@ class Receive(Starter):
 
 
 class Checker(Thread):
-    global soc
-    global Ip
-
-    def __init__(self):
-        global soc
-        global Ip
-        Thread.__init__(self)
-
-    def run(self):
-        global soc
-        global Ip
-        with open("Resources\\ping.bat", "w+") as ping:
-            ping.write("ping.exe " + Ip + " -n 1 > Resources\\Temporary_Files\\ping.txt")
-        while True:
-            while True:
-                subprocess.run("Resources\\ping.bat", stdout=f_null)
-                with open("Resources\\Temporary_Files\\ping.txt", "r") as file:
-                    file = file.read()
-                if file.__contains__("Destination host unreachable.") or file.__contains__("General failure."):
-                    print('Lost connection to server (ping)')
-                    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
-                        os.remove("Resources\\Temporary_Files\\tmp.txt")
-                    else:
-                        pass
-                    os._exit(1)
-                    return
-                else:
-                    pass
-
-
-class Checker2(Thread):
     def __init__(self):
 
         Thread.__init__(self)
@@ -339,12 +304,10 @@ def error_print(error_message, error):
 def main():
     f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
     f.close()
-    # c = Checker()
     new_ip, server_ip = check_for_ip()
     a = Starter(new_ip, server_ip)
-    b = Receive(a)
-    e = Checker2()
-    # c.start()
+    b = Receive()
+    e = Checker()
     a.start()
     b.start()
     e.start()
