@@ -109,7 +109,9 @@ class Starter(Thread):
                 elif user_input == "/cls":
                     os.system('cls')
                 elif user_input == "/restart":
-                    os._exit(1)
+                    print('Restarting client...')
+                    time.sleep(1)
+                    close_client()
                 else:
                     soc.sendall(user_input.encode("utf8"))
 
@@ -128,8 +130,9 @@ class Receive(Starter):
                 data = soc.recv(1024).decode()
                 if not str(data).__contains__("--TEST--"):
                     if data == "":
-                        os._exit(1)
                         print('lost connection')
+                        time.sleep(1)
+                        close_client()
                     elif str(data) == "--SENDING_FILE--":
                         print('recieving file...')
                         s = get_ip_from_sock(soc)
@@ -159,12 +162,7 @@ class Receive(Starter):
             except Exception as e:
                 print('server closed')
                 print(str(e))
-                if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
-                    os.remove("Resources\\Temporary_Files\\tmp.txt")
-                else:
-                    pass
-                os._exit(1)
-                return
+                close_client()
 
 
 class Checker(Thread):
@@ -180,11 +178,7 @@ class Checker(Thread):
                 if f != "":
                     pass
                 else:
-                    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
-                        os.remove("Resources\\Temporary_Files\\tmp.txt")
-                    else:
-                        pass
-                    os._exit(1)
+                    close_client()
 
 
 class CheckIfNameSent(Thread):
@@ -301,6 +295,14 @@ def error_log(error):
 
 def error_print(error_message, error):
     print("SYSTEM ERROR - " + error_message + ": " + str(error))
+
+
+def close_client():
+    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
+        os.remove("Resources\\Temporary_Files\\tmp.txt")
+    else:
+        pass
+    os._exit(1)
 
 
 def main():
