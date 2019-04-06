@@ -108,6 +108,8 @@ class Starter(Thread):
                     soc.sendall(message.encode("utf-8"))
                 elif user_input == "/cls":
                     os.system('cls')
+                elif user_input == "/restart":
+                    os._exit(1)
                 else:
                     soc.sendall(user_input.encode("utf8"))
 
@@ -302,15 +304,19 @@ def error_print(error_message, error):
 
 
 def main():
-    f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
-    f.close()
-    new_ip, server_ip = check_for_ip()
-    a = Starter(new_ip, server_ip)
-    b = Receive()
-    e = Checker()
-    a.start()
-    b.start()
-    e.start()
+    try:
+        f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
+        f.close()
+        new_ip, server_ip = check_for_ip()
+        a = Starter(new_ip, server_ip)
+        b = Receive()
+        e = Checker()
+        a.start()
+        b.start()
+        e.start()
+    except Exception as error:
+        error_log(error)
+        error_print("Error at main", error)
 
 
 if __name__ == '__main__':
