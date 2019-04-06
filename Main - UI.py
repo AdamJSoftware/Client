@@ -24,6 +24,7 @@ class Default(Thread):
                 pass
             else:
                 if connected_to_network() is True:
+                    time.sleep(2)
                     os.system('cls')
                     subprocess.call(['python.exe', 'Client - UI.py'])
                     os.system('cls')
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
     create_resource_file("Backup.txt", "Backup Log", "")
     create_resource_file("Client_Service.txt", "Client Service", "test")
-    time.sleep(5)
+    time.sleep(3)
     a = Default()
     b = Check()
     a.start()
