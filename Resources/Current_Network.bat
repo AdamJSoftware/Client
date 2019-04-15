@@ -1,1 +1,1 @@
-powershell.exe -ExecutionPolicy Bypass -File Resources\Current_Network.ps1
+netsh wlan show interfaces > Resources/Temporary_Files/Current_Network.txt

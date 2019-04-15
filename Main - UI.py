@@ -11,7 +11,9 @@ class Check(Thread):
         Thread.__init__(self)
 
     def run(self):
-        subprocess.run("Resources\\Current_Network.bat", stdout=null)
+        while True:
+            time.sleep(5)
+            subprocess.run("Resources\\Current_Network.bat", stdout=null)
 
 
 class Default(Thread):
@@ -37,11 +39,12 @@ class Default(Thread):
 
 
 def connected_to_network():
-    with open("Resources\\Temporary_Files\\Current_Network.txt", encoding="(utf-16") as file:
+    with open("Resources\\Temporary_Files\\Current_Network.txt") as file:
         f_full = file.read()
-        current_network = file.read()
-        if current_network != "":
-            current_network = current_network.split('\n')[0]
+        if f_full.__contains__(": connected"):
+            new = f_full.split("SSID")[1]
+            new = new.split(": ")[1]
+            current_network = new.split("\n")[0]
             print("Currently connected to -> " + current_network)
         else:
             current_network = ""
