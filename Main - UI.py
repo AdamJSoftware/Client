@@ -25,15 +25,17 @@ class Default(Thread):
             if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
                 pass
             else:
-                if connected_to_network() is True:
+                os.system('cls')
+                print('Connection lost to server...')
+                print('Waiting for connection to the internet...')
+                sn = sn_func()
+                print("Current Server Network -> " + sn)
+                ctn = connected_to_network()
+                if ctn is True:
                     time.sleep(2)
                     os.system('cls')
                     subprocess.call(['python.exe', 'Client - UI.py'])
                     os.system('cls')
-                    print('Connection lost to server...')
-                    print('Waiting for connection to the internet...')
-                    sn = sn_func()
-                    print("Current Server Network -> " + sn)
                 else:
                     time.sleep(5)
 
