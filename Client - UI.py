@@ -194,6 +194,17 @@ class CheckIfNameSent(Thread):
         message_to_send = "--PCNAME--||" + hostname + "||" + mac_address
         self.server_socket.sendall(message_to_send.encode("utf-8"))
 
+class Check2(Thread):
+    def __init__(self, server_socket):
+        Thread.__init__(self)
+        self.server_socket = server_socket
+
+    def run(self):
+        while True:
+            time.sleep(5)
+            message_to_send = "--TEST--"
+            self.server_socket.sendall(message_to_send.encode("utf-8"))
+
 
 def check_for_ip():
     if os.path.isfile("Resources\\Temporary_Files\\IP.txt"):
