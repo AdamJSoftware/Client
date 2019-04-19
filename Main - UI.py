@@ -94,9 +94,9 @@ else:
     pass
 
 if os.path.isdir("Resources\\Temporary_Files"):
-    os.mkdir("Resources\\Temporary_Files")
-else:
     pass
+else:
+    os.mkdir("Resources\\Temporary_Files")
 
 
 if __name__ == '__main__':
