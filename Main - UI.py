@@ -93,6 +93,12 @@ if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
 else:
     pass
 
+if os.path.isdir("Resources\\Temporary_Files"):
+    os.mkdir("Resources\\Temporary_Files")
+else:
+    pass
+
+
 
 if __name__ == '__main__':
     create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
