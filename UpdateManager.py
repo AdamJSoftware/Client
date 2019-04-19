@@ -18,10 +18,14 @@ def main():
 
 
 def client_update():
-    client_repository = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/Version.txt")
+    client_version = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/Version.txt")
 
+    with open("Version.txt", "w") as f:
+        f.write(client_version.content)
+
+    client_repository = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/Repositort.txt")
     with open("Repository.txt", "w") as f:
-        f.write(client_repository.content)
+        f.write(client_version.content)
 
     remove_files(client_repository.content)
 
