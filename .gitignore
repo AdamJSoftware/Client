@@ -1,7 +1,6 @@
 .idea
 venv
 __pycache__
-Resources/Temporary_files
 *.ini
 *.txt
 Resources/Temporary_files/Current_Network.txt
