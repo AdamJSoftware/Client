@@ -68,8 +68,6 @@ def main():
         'GUID_ACDC_POWER_SOURCE': GUID_ACDC_POWER_SOURCE,
         'GUID_BATTERY_PERCENTAGE_REMAINING': GUID_BATTERY_PERCENTAGE_REMAINING
     }
-    for name, guid_info in guids_info.items():
-        result = windll.user32.RegisterPowerSettingNotification(HANDLE(hwnd), GUID(guid_info), DWORD(0))
 
     while True:
         win32gui.PumpWaitingMessages()
