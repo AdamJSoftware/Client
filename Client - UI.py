@@ -3,12 +3,17 @@ import socket
 import subprocess
 import time
 import uuid
+import WINAPI
 from Scripts import Get
 from Scripts import File_Sender
 from Scripts import BackupEngine
 from Scripts import BackupSyncEngine
 from threading import Thread
 global soc
+import io
+import atexit
+
+
 
 f_null = open(os.devnull, 'w')
 
@@ -194,6 +199,7 @@ class CheckIfNameSent(Thread):
         message_to_send = "--PCNAME--||" + hostname + "||" + mac_address
         self.server_socket.sendall(message_to_send.encode("utf-8"))
 
+
 class Check2(Thread):
     def __init__(self, server_socket):
         Thread.__init__(self)
@@ -204,6 +210,31 @@ class Check2(Thread):
             time.sleep(5)
             message_to_send = "--TEST--"
             self.server_socket.sendall(message_to_send.encode("utf-8"))
+
+
+class WindowsApiInterface(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+
+    def run(self):
+       WINAPI.main()
+
+
+class Output(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+
+    def run(self):
+        while True:
+            time.sleep(5)
+            with open("Resources\\Temporary_Files\\Suspension.txt", "r") as f:
+                f = f.read()
+                if f == "SYSTEM RESUME":
+                    with open("Resources\\Temporary_Files\\Suspension.txt", "w") as f:
+                        f.write("")
+                    close_client()
+                else:
+                    pass
 
 
 def check_for_ip():
@@ -320,14 +351,26 @@ def close_client():
     os._exit(1)
 
 
+def exit_handler():
+    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
+        os.remove("Resources\\Temporary_Files\\tmp.txt")
+    else:
+        pass
+
+
 def main():
     try:
+        atexit.register(exit_handler)
         f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
         f.close()
         new_ip, server_ip = check_for_ip()
         a = Starter(new_ip, server_ip)
         b = Receive()
         e = Checker()
+        f = WindowsApiInterface()
+        g = Output()
+        g.start()
+        f.start()
         a.start()
         b.start()
         e.start()

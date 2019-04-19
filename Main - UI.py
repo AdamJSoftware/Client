@@ -44,10 +44,14 @@ def connected_to_network():
     with open("Resources\\Temporary_Files\\Current_Network.txt") as file:
         f_full = file.read()
         if f_full.__contains__(": connected"):
-            new = f_full.split("SSID")[1]
-            new = new.split(": ")[1]
-            current_network = new.split("\n")[0]
-            print("Currently connected to -> " + current_network)
+            try:
+                new = f_full.split("SSID")[1]
+                new = new.split(": ")[1]
+                current_network = new.split("\n")[0]
+                print("Currently connected to -> " + current_network)
+            except Exception as error:
+                error_print("Error while read current network", error)
+                return False
         else:
             current_network = ""
     sn = sn_func()
@@ -61,6 +65,16 @@ def sn_func():
     with open("Resources\\Temporary_Files\\Saved_Network.txt") as SN:
         sn = SN.read()
         return sn
+
+
+def error_log(error):
+    with open("Resources\\ErrorLog.txt", 'a') as file:
+        file.write(time.ctime() + "\n")
+        file.write(str(error) + "\n" + "\n")
+
+
+def error_print(error_message, error):
+    print("SYSTEM ERROR - " + error_message + ": " + str(error))
 
 
 def create_resource_file(file_name, print_text, text):
@@ -82,6 +96,8 @@ if __name__ == '__main__':
     create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
     create_resource_file("Backup.txt", "Backup Log", "")
     create_resource_file("Client_Service.txt", "Client Service", "test")
+    create_resource_file("Current_Network.txt", "Current Network", "")
+    create_resource_file("Temporary_Files\\Suspension.txt", "Suspension", "")
     time.sleep(3)
     a = Default()
     b = Check()
