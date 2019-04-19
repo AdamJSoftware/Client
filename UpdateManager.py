@@ -30,23 +30,31 @@ def client_update():
     with open("Repository.txt", "w") as f:
         f.write(client_repository)
 
-    remove_files(client_repository)
+    remove_files()
+    write_new_files()
 
 
-def remove_files(client_repository):
-    for index, file in enumerate(client_repository):
-        if os.path.isfile(file):
-            pass
-        else:
-            os.remove(file)
+def remove_files():
+    with open("Repository.txt", "r") as f:
+        client_repository = f.readlines()
+        for index, file in enumerate(client_repository):
+            try:
+                if os.path.isfile(file):
+                    pass
+                else:
+                    os.remove(file)
+            except Exception as error:
+                print(error)
 
 
-def write_new_files(client_repository):
-    for index, file in enumerate(client_repository):
-        new_file = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/" + file)
-        new_file = new_file.content.decode("utf-8")
-        with open(file, 'w') as f:
-            f.write(new_file)
+def write_new_files():
+    with open("Repository.txt", "r") as f:
+        client_repository = f.readlines()
+        for index, file in enumerate(client_repository):
+            new_file = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/" + file)
+            new_file = new_file.content.decode("utf-8")
+            with open(file, 'w') as f:
+                f.write(new_file)
 
 
 if __name__ == '__main__':
