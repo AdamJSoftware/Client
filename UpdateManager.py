@@ -48,7 +48,7 @@ def remove_files(client_repository):
 
 def write_new_files(client_repository):
     for index, file in enumerate(client_repository):
-        new_file = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/" + file)
+        new_file = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master" + file)
         new_file = new_file.content.decode("utf-8")
         try:
             with open(file, 'w') as f:
