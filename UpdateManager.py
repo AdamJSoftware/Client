@@ -25,9 +25,10 @@ def client_update():
     with open("Version.txt", "w") as f:
         f.write(client_version)
 
-    client_repository = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/Repositort.txt")
+    client_repository = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/Repository.txt")
+    client_repository = client_repository.content.decode("utf-8")
     with open("Repository.txt", "w") as f:
-        f.write(client_version)
+        f.write(client_repository)
 
     remove_files(client_repository)
 
