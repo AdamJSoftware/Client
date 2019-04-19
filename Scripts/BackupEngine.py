@@ -56,8 +56,8 @@ def backup2(filesAndSize, og):
             newlist.remove(lines)
             print("REMOVED")
 
-    for lines in newlist:
-        print(lines)
+    # for lines in newlist:
+    #     # print(lines)
 
     return newlist
 
@@ -105,7 +105,7 @@ def files_to_scan_func(i):
         f = f.readlines()
 
         files = f
-        print(files)
+        # print(files)
 
     for file in files:
         try:

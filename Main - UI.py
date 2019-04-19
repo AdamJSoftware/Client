@@ -25,6 +25,7 @@ class Default(Thread):
             if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
                 pass
             else:
+                time.sleep(1)
                 os.system('cls')
                 print('Connection lost to server...')
                 print('Waiting for connection to the internet...')
@@ -32,12 +33,12 @@ class Default(Thread):
                 print("Current Server Network -> " + sn)
                 ctn = connected_to_network()
                 if ctn is True:
-                    time.sleep(2)
+                    time.sleep(1)
                     os.system('cls')
                     subprocess.call(['python.exe', 'Client - UI.py'])
                     os.system('cls')
                 else:
-                    time.sleep(5)
+                    time.sleep(4)
 
 
 def connected_to_network():
@@ -96,8 +97,8 @@ else:
 if __name__ == '__main__':
     create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
     create_resource_file("Backup.txt", "Backup Log", "")
-    create_resource_file("Client_Service.txt", "Client Service", "test")
-    create_resource_file("Current_Network.txt", "Current Network", "")
+    create_resource_file("Temporary_Files\\Client_Service.txt", "Client Service", "test")
+    create_resource_file("Temporary_Files\\Current_Network.txt", "Current Network", "")
     create_resource_file("Temporary_Files\\Suspension.txt", "Suspension", "")
     time.sleep(3)
     a = Default()
