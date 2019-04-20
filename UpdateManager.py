@@ -1,19 +1,33 @@
 import requests
 import os
 import subprocess
+import time
 
 
 def main():
     repository_version = requests.get('https://raw.githubusercontent.com/AdamJSoftware/Client/master/Version.txt')
     repository_version = repository_version.content.decode("utf-8")
+
+    updater_version = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/UpdateManager.txt")
+    updater_version = updater_version.content.decode("utf-8")
+
     with open('Version.txt', 'r') as f:
         program_version = f.read()
+
+    with open("UpdateManager.txt", 'r') as f:
+        update_manager_version = f.read()
 
     if repository_version[0] == program_version[0]:
         print('Client up-to-date')
     else:
         print('Updating client')
         client_update()
+
+    if updater_version[0] == update_manager_version[0]:
+        print('Update manager up-to-date')
+    else:
+        print('Please manually update client!')
+        time.sleep(10)
 
     subprocess.call(['python.exe', 'Main - UI.py'])
 
