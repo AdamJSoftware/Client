@@ -102,6 +102,7 @@ else:
 if __name__ == '__main__':
     create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
     create_resource_file("Backup.txt", "Backup Log", "")
+    create_resource_file("Config.txt", "Config", "Network connect: True")
     create_resource_file("Temporary_Files\\Client_Service.txt", "Client Service", "test")
     create_resource_file("Temporary_Files\\Current_Network.txt", "Current Network", "")
     create_resource_file("Temporary_Files\\Suspension.txt", "Suspension", "")

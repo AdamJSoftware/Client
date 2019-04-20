@@ -265,6 +265,7 @@ def mac():
     mac = ':'.join(a + b for a, b in zip(mac[::2], mac[1::2]))
     return(mac)
 
+
 def main():
     f = open("Resources\Temporary_Files\\tmp.txt", "w+")
     f.close()

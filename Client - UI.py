@@ -3,16 +3,15 @@ import socket
 import subprocess
 import time
 import uuid
+import atexit
 import WINAPI
+from tkinter import filedialog
 from Scripts import Get
 from Scripts import File_Sender
 from Scripts import BackupEngine
 from Scripts import BackupSyncEngine
 from threading import Thread
 global soc
-import io
-import atexit
-
 
 
 f_null = open(os.devnull, 'w')
@@ -119,6 +118,10 @@ class Starter(Thread):
                     print('Restarting client...')
                     time.sleep(1)
                     close_client()
+                elif user_input == "/help":
+                    help_func()
+                elif user_input == "/backup selector":
+                    backup_configurator()
                 else:
                     soc.sendall(user_input.encode("utf8"))
 
@@ -356,6 +359,23 @@ def exit_handler():
         os.remove("Resources\\Temporary_Files\\tmp.txt")
     else:
         pass
+
+
+def help_func():
+    print("/m - 'DEVICE NAME' --> Sends message to device, \n"
+          "/wake 'DEVICE NAME' --> Turns on device, \n"
+          "/send --> Sends file to server, \n"
+          "/send to 'DEVICE NAME' --> Sends file to specified device, \n"
+          "/backup --> Backups device, \n"
+          "/backup selector --> allows to select what folders to backup, \n"
+          "/restart --> Restarts the client, \n"
+          "/back --> Exists messaging menu, \n")
+
+
+def backup_configurator():
+    path = filedialog.askdirectory()
+    with open("Resources\\Backup.txt", "a") as f:
+        f.write(path + "\n")
 
 
 def main():
