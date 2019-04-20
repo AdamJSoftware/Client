@@ -177,7 +177,6 @@ class Receive(Starter):
 
 class Checker(Thread):
     def __init__(self):
-
         Thread.__init__(self)
 
     def run(self):
@@ -378,6 +377,15 @@ def backup_configurator():
         f.write(path + "\n")
 
 
+def get_network_connect():
+    with open("Resources\\Config.txt", "r") as f:
+        f = f.read()
+        if f == "Network connect: True":
+            return True
+        else:
+            return False
+
+
 def main():
     try:
         atexit.register(exit_handler)
@@ -393,7 +401,8 @@ def main():
         f.start()
         a.start()
         b.start()
-        e.start()
+        if get_network_connect():
+            e.start()
     except Exception as error:
         error_log(error)
         error_print("Error at main", error)

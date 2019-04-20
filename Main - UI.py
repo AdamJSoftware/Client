@@ -27,18 +27,24 @@ class Default(Thread):
             else:
                 time.sleep(1)
                 os.system('cls')
-                print('Connection lost to server...')
-                print('Waiting for connection to the internet...')
-                sn = sn_func()
-                print("Current Server Network -> " + sn)
-                ctn = connected_to_network()
-                if ctn is True:
+                if get_network_connect():
+                    print('Connection lost to server...')
+                    print('Waiting for connection to the internet...')
+                    sn = sn_func()
+                    print("Current Server Network -> " + sn)
+                    ctn = connected_to_network()
+                    if ctn is True:
+                        time.sleep(1)
+                        os.system('cls')
+                        subprocess.call(['python.exe', 'Client - UI.py'])
+                        os.system('cls')
+                    else:
+                        time.sleep(4)
+                else:
                     time.sleep(1)
                     os.system('cls')
                     subprocess.call(['python.exe', 'Client - UI.py'])
                     os.system('cls')
-                else:
-                    time.sleep(4)
 
 
 def connected_to_network():
@@ -86,6 +92,15 @@ def create_resource_file(file_name, print_text, text):
         print("SYSTEM: Creating " + print_text + "...")
         with open("Resources\\" + file_name, "w+") as file_to_create:
             file_to_create.write(text)
+
+
+def get_network_connect():
+    with open("Resources\\Config.txt", "r") as f:
+        f = f.read()
+        if f == "Network connect: True":
+            return True
+        else:
+            return False
 
 
 if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
