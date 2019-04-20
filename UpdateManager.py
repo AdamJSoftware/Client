@@ -14,7 +14,7 @@ def main():
     with open("UpdateManager.txt", 'r') as f:
         update_manager_version = f.read()
 
-    if updater_version[0] == update_manager_version[0]:
+    if updater_version == update_manager_version:
         print('Update manager up-to-date')
     else:
         print('Please manually update client!')
@@ -23,7 +23,7 @@ def main():
     with open('Version.txt', 'r') as f:
         program_version = f.read()
 
-    if repository_version[0] == program_version[0]:
+    if repository_version == program_version:
         print('Client up-to-date')
     else:
         print('Updating client')
