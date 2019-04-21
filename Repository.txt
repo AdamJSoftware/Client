@@ -7,3 +7,8 @@ Scripts//BackupEngine.py
 Scripts//BackupSyncEngine.py
 Scripts//File_Sender.py
 Scripts//Get.py
+Installer.bat
+Main.bat
+Main - UI.bat
+Client.bat
+Client - UI.bat
