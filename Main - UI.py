@@ -27,7 +27,7 @@ class Default(Thread):
             else:
                 time.sleep(1)
                 os.system('cls')
-                if get_network_connect():
+                if get_network_connect() is True:
                     print('Connection lost to server...')
                     print('Waiting for connection to the internet...')
                     sn = sn_func()
