@@ -77,13 +77,14 @@ class Starter(Thread):
                     print("Successfully connected to server")
                     message = socket.gethostname()
                     print("Client hostname -> " + message)
-                    if network_func() is True:
-                        ssid = connected_to_network_func()
-                        print("Adding -> " + ssid + " as server network")
-                        with open('Resources\\Temporary_Files\\Saved_Network.txt', 'w') as f:
-                            f.write(ssid)
-                    else:
-                        pass
+                    if get_network_connect():
+                        if network_func() is True:
+                            ssid = connected_to_network_func()
+                            print("Adding -> " + ssid + " as server network")
+                            with open('Resources\\Temporary_Files\\Saved_Network.txt', 'w') as f:
+                                f.write(ssid)
+                        else:
+                            pass
                     i = CheckIfNameSent(soc)
                     i.start()
                     connected = True

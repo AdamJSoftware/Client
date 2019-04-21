@@ -60,7 +60,6 @@ def connected_to_network():
                 error_print("Error while read current network", error)
                 return False
         else:
-
             current_network = ""
     sn = sn_func()
     if current_network == sn or f_full.__contains__(sn) or sn == "Insert SSID":
