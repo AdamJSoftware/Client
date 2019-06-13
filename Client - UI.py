@@ -111,8 +111,7 @@ class Starter(Thread):
                     message = "--WAKE--" + message
                     soc.sendall(message.encode("utf-8"))
                 elif user_input == '/backup':
-                    message = "--BACKUP--"
-                    soc.sendall(message.encode("utf-8"))
+                    backup_start()
                 elif user_input == "/cls":
                     os.system('cls')
                 elif user_input == "/restart":
@@ -313,7 +312,7 @@ def get_files(server_socket):
         f = f.readlines()
     print('finished reading FTS')
     for index, file in enumerate(f):
-        if file.__contains__("C:\\Users"):
+        if file.__contains__("C:\\"):
             time.sleep(1)
             message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
             message = message.encode("utf-8")
@@ -387,6 +386,12 @@ def get_network_connect():
             return False
 
 
+def backup_start():
+    global soc
+    message = "--BACKUP--"
+    soc.sendall(message.encode("utf-8"))
+
+
 def main():
     try:
         atexit.register(exit_handler)
@@ -404,6 +409,8 @@ def main():
         b.start()
         if get_network_connect():
             e.start()
+        time.sleep(10)
+        backup_start()
     except Exception as error:
         error_log(error)
         error_print("Error at main", error)

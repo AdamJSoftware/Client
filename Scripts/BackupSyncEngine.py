@@ -17,6 +17,7 @@ def main():
 
     with open("Resources\\FTS.txt", "w", encoding="utf-8") as f:
         for file in FTS:
+            file = file.replace('\\', '\\\\')
             f.write(file)
 
 
