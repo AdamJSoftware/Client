@@ -3,11 +3,20 @@ import time
 import socket
 
 
+
+global can_connect
+can_connect = False
+
+
 def main(IP_TO_SEND):
+    global can_connect
     s = socket.socket()
 
     host = IP_TO_SEND  # Ip address that the TCPServer  is there
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
+
+    while can_connect is False:
+        time.sleep(.1)
 
     try:
         s.connect((host, port))
@@ -21,6 +30,7 @@ def main(IP_TO_SEND):
         print('receiving data...')
         while True:
 
+
             data = s.recv(1024)
             if not data:
                 break
@@ -32,16 +42,24 @@ def main(IP_TO_SEND):
     print('Successfully got the file')
     s.close()
     print('connection closed')
+    can_connect = False
 
 
 def GETFILES(IP_TO_SEND):
+    global can_connect
     s = socket.socket()
 
     host = IP_TO_SEND  # Ip address that the TCPServer  is there
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
 
+    while can_connect is False:
+        time.sleep(.1)
+
+
     s.connect((host, port))
     print('started reciever')
+
+
 
     try:
         pass
@@ -65,3 +83,4 @@ def GETFILES(IP_TO_SEND):
     print('Successfully got the file')
     s.close()
     print('connection closed')
+    can_connect = False

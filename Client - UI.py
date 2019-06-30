@@ -100,7 +100,7 @@ class Starter(Thread):
                 if user_input == "/send":
                     message = "--SENDING_FILE--"
                     soc.sendall(message.encode("utf8"))
-                    File_Sender.main()
+                    File_Sender.main(soc)
                 elif user_input.__contains__('/send to '):
                     message = user_input.split("/send to ")[1]
                     print(message)
@@ -147,25 +147,31 @@ class Receive(Starter):
                         print('recieving file...')
                         s = get_ip_from_sock(soc)
                         print(s)
-                        Get.main(s)
+                        i = GETMAINThread(s)
+                        i.start()
                     elif str(data).__contains__("--RM_MESSAGE--"):
                         data = data.split("--RM_MESSAGE--")[1]
                         print("RM: " + data)
                     elif str(data).__contains__("--SENDING_FILE_TO--"):
                         data = data.split("--SENDING_FILE_TO--")[1]
                         s = get_ip_from_sock(data)
-                        Get.main(s)
+                        i = GETMAINThread(s)
+                        i.start()
                     elif str(data).__contains__("--CLIENT_ID--"):
                         print('got address')
                         # data = data.split("--CLIENT_ID--")[1]
                         print('starting server')
-                        subprocess.call(["python.exe", "Scripts\\File_Sender.py"])
+                        File_Sender.main(soc)
                     elif str(data).__contains__("||BACKUP||"):
                         print("running backup")
                         backup_func()
                     elif str(data).__contains__("--GETFILES--"):
                         print("Getting required files")
                         get_files(soc)
+                    elif str(data).__contains__("CONNECT"):
+                        print('SET CAN_CONNECT TO TRUE')
+                        Get.can_connect = True
+
                     else:
                         print('\n' + "Receiving message from server: " + data)
                         time.sleep(.1)
@@ -238,6 +244,23 @@ class Output(Thread):
                 else:
                     pass
 
+class GETMAINThread(Thread):
+    def __init__(self, server_socket):
+        Thread.__init__(self)
+        self.s = server_socket
+
+    def run(self):
+        Get.main(self.s)
+
+
+class GETFILESThread(Thread):
+    def __init__(self, server_socket):
+        Thread.__init__(self)
+        self.s = server_socket
+
+    def run(self):
+        Get.GETFILES(self.s)
+
 
 def check_for_ip():
     if os.path.isfile("Resources\\Temporary_Files\\IP.txt"):
@@ -295,7 +318,7 @@ def mac_func():
 def backup_func():
     global soc
     BackupEngine.main()
-    File_Sender.backup_send("Resources\\Backup2.txt")
+    File_Sender.backup_send(soc, "Resources\\Backup2.txt")
 
 
 def get_ip_from_sock(sock):
@@ -306,7 +329,8 @@ def get_ip_from_sock(sock):
 
 def get_files(server_socket):
     server_ip = get_ip_from_sock(server_socket)
-    Get.GETFILES(server_ip)
+    t = GETFILESThread(server_ip)
+    t.start()
     BackupSyncEngine.main()
     with open("Resources\\FTS.txt", "r", encoding="utf-8-sig") as f:
         f = f.readlines()
@@ -332,7 +356,7 @@ def get_files(server_socket):
                 error_log(error)
             print('SENDING BACKUP FILE: ' + str(file))
             print('SENDING NAME + ' + other_file)
-            File_Sender.send_backup_files(file, other_file)
+            File_Sender.send_backup_files(server_socket, file, other_file)
 
 
 def error_log(error):
@@ -407,6 +431,7 @@ def main():
         f.start()
         a.start()
         b.start()
+
         if get_network_connect():
             e.start()
         time.sleep(10)

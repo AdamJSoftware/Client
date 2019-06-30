@@ -8,7 +8,7 @@ def error_log(error):
         file.write(time.ctime() + "\n")
         file.write(str(error) + "\n" + "\n")
 
-def main():
+def main(client):
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
@@ -16,6 +16,7 @@ def main():
     s.listen(5)  # Now wait for client connection.
 
     print('Server listening....')
+    client.send('CONNECT'.encode("utf-8"))
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -33,7 +34,7 @@ def main():
     conn.close()
 
 
-def backup_send(path):
+def backup_send(client, path):
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
@@ -41,6 +42,7 @@ def backup_send(path):
     s.listen(5)  # Now wait for client connection.
 
     print('Server listening....')
+    client.send('CONNECT'.encode("utf-8"))
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -59,7 +61,7 @@ def backup_send(path):
     conn.close()
 
 
-def send_backup_files(path, name):
+def send_backup_files(client, path, name):
     port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
@@ -67,6 +69,7 @@ def send_backup_files(path, name):
     s.listen(5)  # Now wait for client connection.
 
     print('Server listening....')
+    client.send('CONNECT'.encode("utf-8"))
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
