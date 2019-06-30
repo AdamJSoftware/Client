@@ -125,14 +125,14 @@ def files_to_scan_func(i):
                 else:
                     folderorfile(file, filesAndSize, files)
 
-    with open("Resources\Backup_SEND.txt", "w", encoding="utf-8") as f:
+    with open("Resources/Backup_SEND.txt", "w", encoding="utf-8") as f:
         for file in filesAndSize:
             f.write(str(file) + "\n")
 
-    with open("Resources\Backup2.txt", "w", encoding="utf-8") as f:
+    with open("Resources/Backup2.txt", "w", encoding="utf-8") as f:
         b2 = backup2(filesAndSize, og)
         for file in b2:
-            f.write(str(file) + "\n")
+            f.write(str(file).replace('\\', '//') + "\n")
 
 
 if __name__ == '__main__':
