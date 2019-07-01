@@ -22,7 +22,7 @@ class Default(Thread):
 
     def run(self):
         while True:
-            if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
+            if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
                 pass
             else:
                 time.sleep(1)
@@ -48,7 +48,7 @@ class Default(Thread):
 
 
 def connected_to_network():
-    with open("Resources\\Temporary_Files\\Current_Network.txt") as file:
+    with open("Resources/Temporary_Files/Current_Network.txt") as file:
         f_full = file.read()
         if f_full.__contains__(": connected"):
             try:
@@ -69,13 +69,13 @@ def connected_to_network():
 
 
 def sn_func():
-    with open("Resources\\Temporary_Files\\Saved_Network.txt") as SN:
+    with open("Resources/Temporary_Files/Saved_Network.txt") as SN:
         sn = SN.read()
         return sn
 
 
 def error_log(error):
-    with open("Resources\\ErrorLog.txt", 'a') as file:
+    with open("Resources/ErrorLog.txt", 'a') as file:
         file.write(time.ctime() + "\n")
         file.write(str(error) + "\n" + "\n")
 
@@ -85,16 +85,16 @@ def error_print(error_message, error):
 
 
 def create_resource_file(file_name, print_text, text):
-    if os.path.isfile("Resources\\" + file_name):
+    if os.path.isfile("Resources/" + file_name):
         pass
     else:
         print("SYSTEM: Creating " + print_text + "...")
-        with open("Resources\\" + file_name, "w+") as file_to_create:
+        with open("Resources/" + file_name, "w+") as file_to_create:
             file_to_create.write(text)
 
 
 def get_network_connect():
-    with open("Resources\\Config.txt", "r") as f:
+    with open("Resources/Config.txt", "r") as f:
         f = f.read()
         if f == "Network connect: True":
             return True
@@ -102,24 +102,24 @@ def get_network_connect():
             return False
 
 
-if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
-    os.remove("Resources\\Temporary_Files\\tmp.txt")
+if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
+    os.remove("Resources/Temporary_Files/tmp.txt")
 else:
     pass
 
-if os.path.isdir("Resources\\Temporary_Files"):
+if os.path.isdir("Resources/Temporary_Files"):
     pass
 else:
-    os.mkdir("Resources\\Temporary_Files")
+    os.mkdir("Resources/Temporary_Files")
 
 
 if __name__ == '__main__':
-    create_resource_file("Temporary_Files\\Saved_Network.txt", "Saved Network", "Insert SSID")
+    create_resource_file("Temporary_Files/Saved_Network.txt", "Saved Network", "Insert SSID")
     create_resource_file("Backup.txt", "Backup Log", "")
     create_resource_file("Config.txt", "Config", "Network connect: True")
-    create_resource_file("Temporary_Files\\Client_Service.txt", "Client Service", "test")
-    create_resource_file("Temporary_Files\\Current_Network.txt", "Current Network", "")
-    create_resource_file("Temporary_Files\\Suspension.txt", "Suspension", "")
+    create_resource_file("Temporary_Files/Client_Service.txt", "Client Service", "test")
+    create_resource_file("Temporary_Files/Current_Network.txt", "Current Network", "")
+    create_resource_file("Temporary_Files/Suspension.txt", "Suspension", "")
     time.sleep(3)
     a = Default()
     b = Check()

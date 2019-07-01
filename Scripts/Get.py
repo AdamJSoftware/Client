@@ -2,8 +2,6 @@ import sys
 import time
 import socket
 
-
-
 global can_connect
 can_connect = False
 
@@ -20,7 +18,7 @@ def main(IP_TO_SEND):
 
     try:
         s.connect((host, port))
-        print('started reciever')
+        print('started receiver')
     except Exception as e:
         print('Started twice... exiting')
         print(e)
@@ -68,7 +66,7 @@ def GETFILES(IP_TO_SEND):
         sys.exit()
     name = s.recv(1024)
     name = name.decode("utf-8")
-    with open("Resources\\" + name, 'wb') as f:
+    with open("Resources/" + name, 'wb') as f:
         print('receiving data...')
         while True:
 

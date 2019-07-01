@@ -24,7 +24,7 @@ class Network(Thread):
     def run(self):
         while True:
             print('running')
-            subprocess.run("Resources\\Current_Network.bat", stdout=f_null)
+            subprocess.run("Resources/Current_Network.bat", stdout=f_null)
 
 
 class Starter(Thread):
@@ -59,7 +59,7 @@ class Starter(Thread):
                     print("Client hostname -> " + message)
                     i = CheckIfNameSent(soc)
                     i.start()
-                    with open("Resources\\Temporary_Files\\IP.txt", 'w') as f:
+                    with open("Resources/Temporary_Files/IP.txt", 'w') as f:
                         f.write(host)
                     j = False
                 except Exception as error:
@@ -81,7 +81,7 @@ class Starter(Thread):
                         if network_func() is True:
                             ssid = connected_to_network_func()
                             print("Adding -> " + ssid + " as server network")
-                            with open('Resources\\Temporary_Files\\Saved_Network.txt', 'w') as f:
+                            with open('Resources/Temporary_Files/Saved_Network.txt', 'w') as f:
                                 f.write(ssid)
                         else:
                             pass
@@ -188,7 +188,7 @@ class Checker(Thread):
     def run(self):
         while True:
             time.sleep(7)
-            with open("Resources\\Temporary_Files\\Current_Network.txt") as f:
+            with open("Resources/Temporary_Files/Current_Network.txt") as f:
                 f = f.read()
                 if f.__contains__("disconnected"):
                     close_client()
@@ -235,14 +235,15 @@ class Output(Thread):
     def run(self):
         while True:
             time.sleep(5)
-            with open("Resources\\Temporary_Files\\Suspension.txt", "r") as f:
+            with open("Resources/Temporary_Files/Suspension.txt", "r") as f:
                 f = f.read()
                 if f == "SYSTEM RESUME":
-                    with open("Resources\\Temporary_Files\\Suspension.txt", "w") as f:
+                    with open("Resources/Temporary_Files/Suspension.txt", "w") as f:
                         f.write("")
                     close_client()
                 else:
                     pass
+
 
 class GETMAINThread(Thread):
     def __init__(self, server_socket):
@@ -263,13 +264,13 @@ class GETFILESThread(Thread):
 
 
 def check_for_ip():
-    if os.path.isfile("Resources\\Temporary_Files\\IP.txt"):
-        with open("Resources\\Temporary_Files\\IP.txt", "r") as IP:
+    if os.path.isfile("Resources/Temporary_Files/IP.txt"):
+        with open("Resources/Temporary_Files/IP.txt", "r") as IP:
             server_ip = IP.readline()
             return False, server_ip
     else:
         print("SYSTEM: Creating IP log...")
-        with open("Resources\\Temporary_Files\\IP.txt", "w+") as file_to_create:
+        with open("Resources/Temporary_Files/IP.txt", "w+") as file_to_create:
             file_to_create.write("")
         server_ip = ""
         return True, server_ip
@@ -278,7 +279,7 @@ def check_for_ip():
 def connected_to_network_func():
     while True:
         try:
-            with open("Resources\\Temporary_Files\\Current_Network.txt") as f:
+            with open("Resources/Temporary_Files/Current_Network.txt") as f:
                 f = f.read()
                 new = f.split("SSID")[1]
                 new = new.split(": ")[1]
@@ -298,7 +299,7 @@ def ip_to_send_func(pc_to_connect):
 
 
 def network_func():
-    with open("Resources\\Temporary_Files\\Saved_Network.txt") as f:
+    with open("Resources/Temporary_Files/Saved_Network.txt") as f:
         f = f.read()
         if f == "Insert SSID":
             return True
@@ -318,7 +319,7 @@ def mac_func():
 def backup_func():
     global soc
     BackupEngine.main()
-    File_Sender.backup_send(soc, "Resources\\Backup2.txt")
+    File_Sender.backup_send(soc, "Resources/Backup2.txt")
 
 
 def get_ip_from_sock(sock):
@@ -332,11 +333,11 @@ def get_files(server_socket):
     t = GETFILESThread(server_ip)
     t.start()
     BackupSyncEngine.main()
-    with open("Resources\\FTS.txt", "r", encoding="utf-8-sig") as f:
+    with open("Resources/FTS.txt", "r", encoding="utf-8-sig") as f:
         f = f.readlines()
     print('finished reading FTS')
     for index, file in enumerate(f):
-        if file.__contains__("C:\\"):
+        if file.__contains__("C:/"):
             time.sleep(1)
             message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
             message = message.encode("utf-8")
@@ -360,7 +361,7 @@ def get_files(server_socket):
 
 
 def error_log(error):
-    with open("Resources\\ErrorLog.txt", 'a') as file:
+    with open("Resources/ErrorLog.txt", 'a') as file:
         file.write(time.ctime() + "\n")
         file.write(str(error) + "\n" + "\n")
 
@@ -370,16 +371,16 @@ def error_print(error_message, error):
 
 
 def close_client():
-    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
-        os.remove("Resources\\Temporary_Files\\tmp.txt")
+    if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
+        os.remove("Resources/Temporary_Files/tmp.txt")
     else:
         pass
     os._exit(1)
 
 
 def exit_handler():
-    if os.path.isfile("Resources\\Temporary_Files\\tmp.txt"):
-        os.remove("Resources\\Temporary_Files\\tmp.txt")
+    if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
+        os.remove("Resources/Temporary_Files/tmp.txt")
     else:
         pass
 
@@ -397,12 +398,12 @@ def help_func():
 
 def backup_configurator():
     path = filedialog.askdirectory()
-    with open("Resources\\Backup.txt", "a") as f:
+    with open("Resources/Backup.txt", "a") as f:
         f.write(path + "\n")
 
 
 def get_network_connect():
-    with open("Resources\\Config.txt", "r") as f:
+    with open("Resources/Config.txt", "r") as f:
         f = f.read()
         if f == "Network connect: True":
             return True
@@ -419,7 +420,7 @@ def backup_start():
 def main():
     try:
         atexit.register(exit_handler)
-        f = open("Resources\\Temporary_Files\\tmp.txt", "w+")
+        f = open("Resources/Temporary_Files/tmp.txt", "w+")
         f.close()
         new_ip, server_ip = check_for_ip()
         a = Starter(new_ip, server_ip)
