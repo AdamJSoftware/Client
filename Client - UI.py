@@ -254,6 +254,34 @@ class GETMAINThread(Thread):
         Get.main(self.s)
 
 
+class ConnectThread(Thread):
+    global dict
+
+    def __init__(self):
+        global dict
+        Thread.__init__(self)
+        port = 12345  # Reserve a port for your service every new transfer wants a new port or you must wait.
+        self.s = socket.socket()  # Create a socket object
+        host = ""  # Get local machine name
+        self.s.bind((host,port))
+          # Now wait for client connection.
+
+    def run(self):
+        global dict
+        x = self.s
+
+        while True:
+            try:
+                x.listen(5)
+                connection, address = self.s.accept()
+                message = connection.recv(1024).decode()
+                if message == "CONNECT":
+                    print('GOT CONNECT')
+                    Get.can_connect = True
+            except:
+                pass
+
+
 class GETFILESThread(Thread):
     def __init__(self, server_socket):
         Thread.__init__(self)
@@ -261,6 +289,32 @@ class GETFILESThread(Thread):
 
     def run(self):
         Get.GETFILES(self.s)
+        BackupSyncEngine.main()
+        with open("Resources/FTS.txt", "r", encoding="utf-8-sig") as f:
+            f = f.readlines()
+        print('finished reading FTS')
+        for index, file in enumerate(f):
+            if file.__contains__("C:/"):
+                time.sleep(1)
+                message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
+                message = message.encode("utf-8")
+                soc.send(message)
+                print('sent message')
+                try:
+                    file = file.split("\n")[0]
+                except Exception as error:
+                    error_print("Error while reading FTS", error)
+                    error_log(error)
+                    pass
+                other_file = f[index + 1]
+                try:
+                    other_file = other_file.split("\n")[0]
+                except Exception as error:
+                    error_print("Error while reading FTS", error)
+                    error_log(error)
+                print('SENDING BACKUP FILE: ' + str(file))
+                print('SENDING NAME + ' + other_file)
+                File_Sender.send_backup_files(soc, file, other_file)
 
 
 def check_for_ip():
@@ -332,32 +386,6 @@ def get_files(server_socket):
     server_ip = get_ip_from_sock(server_socket)
     t = GETFILESThread(server_ip)
     t.start()
-    BackupSyncEngine.main()
-    with open("Resources/FTS.txt", "r", encoding="utf-8-sig") as f:
-        f = f.readlines()
-    print('finished reading FTS')
-    for index, file in enumerate(f):
-        if file.__contains__("C:/"):
-            time.sleep(1)
-            message = "--SENDING_BACKUP_FILES--" + str(socket.gethostname())
-            message = message.encode("utf-8")
-            soc.send(message)
-            print('sent message')
-            try:
-                file = file.split("\n")[0]
-            except Exception as error:
-                error_print("Error while reading FTS", error)
-                error_log(error)
-                pass
-            other_file = f[index + 1]
-            try:
-                other_file = other_file.split("\n")[0]
-            except Exception as error:
-                error_print("Error while reading FTS", error)
-                error_log(error)
-            print('SENDING BACKUP FILE: ' + str(file))
-            print('SENDING NAME + ' + other_file)
-            File_Sender.send_backup_files(server_socket, file, other_file)
 
 
 def error_log(error):
@@ -428,10 +456,12 @@ def main():
         e = Checker()
         f = WindowsApiInterface()
         g = Output()
+        h = ConnectThread()
         g.start()
         f.start()
         a.start()
         b.start()
+        h.start()
 
         if get_network_connect():
             e.start()

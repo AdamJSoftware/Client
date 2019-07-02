@@ -127,7 +127,7 @@ def files_to_scan_func(i):
 
     with open("Resources/Backup_SEND.txt", "w", encoding="utf-8") as f:
         for file in filesAndSize:
-            f.write(str(file) + "\n")
+            f.write(str(file).replace('\\', '/') + "\n")
 
     with open("Resources/Backup2.txt", "w", encoding="utf-8") as f:
         b2 = backup2(filesAndSize, og)

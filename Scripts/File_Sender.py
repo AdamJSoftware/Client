@@ -16,7 +16,7 @@ def main(client):
     s.listen(5)  # Now wait for client connection.
 
     print('Server listening....')
-    client.send('CONNECT'.encode("utf-8"))
+    send_ready(client)
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -42,7 +42,7 @@ def backup_send(client, path):
     s.listen(5)  # Now wait for client connection.
 
     print('Server listening....')
-    client.send('CONNECT'.encode("utf-8"))
+    send_ready(client)
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -68,8 +68,11 @@ def send_backup_files(client, path, name):
     s.bind((host, port))  # Bind to the port
     s.listen(5)  # Now wait for client connection.
 
+    print(client)
+
     print('Server listening....')
-    client.send('CONNECT'.encode("utf-8"))
+    send_ready(client)
+    print('Connect message sent')
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -97,6 +100,21 @@ def send_backup_files(client, path, name):
             file = f.read(1024)
     print('Done sending')
     conn.close()
+
+
+def get_ip_from_sock(sock):
+    sock = str(sock).rsplit("raddr=('", 1)[1]
+    sock = str(sock).rsplit("',", 1)[0]
+    return sock
+
+def send_ready(client):
+    s = socket.socket()
+    port = 12345
+    host = get_ip_from_sock(client)
+    s.connect((host, port))
+    message = 'CONNECT'
+    s.send(message.encode("utf-8"))
+    print('message sent')
 
 
 if __name__ == '__main__':
