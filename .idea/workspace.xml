@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a18683f-ea47-4e6e-97b3-84bcc3d2eb4a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="65d926fe-1909-4d02-a900-fae40c417406" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -11,109 +14,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="Client" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Main - UI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Currently Co</find>
-      <find>err</find>
-      <find>python' is not recognized as an internal or external command</find>
-      <find>python</find>
-      <find>wndproc</find>
-      <find>wndproc()</find>
-      <find>CMPFUNC</find>
-      <find>wndproc_pointer</find>
-      <find>wndclass.</find>
-      <find>myWindowClass</find>
-      <find>close</find>
-      <find>WINA</find>
-      <find>print(</find>
-      <find>got t</find>
-      <find>got the</find>
-      <find>got th</find>
-      <find>write_new</find>
-      <find>/confi</find>
-      <find>connected_to</find>
-      <find>network_func(</find>
-      <find>connected_to_</find>
-      <find>backup_f</find>
-      <find>GETF</find>
-      <find>File</find>
-      <find>File_Sender</find>
-      <find>Get</find>
-      <find>Get.</find>
-      <find>Backup2</find>
-      <find>Resources</find>
-      <find>//</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Client/BackupEngine.py" />
-        <option value="$PROJECT_DIR$/Client/Client.py" />
-        <option value="$PROJECT_DIR$/Client/Get.py" />
-        <option value="$PROJECT_DIR$/Client/File_Sender.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/BackupEngine.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/BackupSyncEngine.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/Get.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/File_Sender 2.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/File_Sender_2.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/File_Sender.py" />
-        <option value="$PROJECT_DIR$/Client/Scripts/test.py" />
-        <option value="$PROJECT_DIR$/Client/Main - UI.py" />
-        <option value="$PROJECT_DIR$/Client/Client - UI.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/WINAPI.bat" />
-        <option value="$PROJECT_DIR$/WINAPI2.py" />
-        <option value="$PROJECT_DIR$/Resources/Temporary_Files/Current_Network.txt" />
-        <option value="$PROJECT_DIR$/Resources/Current_Network.bat" />
-        <option value="$PROJECT_DIR$/WINAPI.py" />
-        <option value="$PROJECT_DIR$/Main - UI.bat" />
-        <option value="$PROJECT_DIR$/UpdateManager.py" />
-        <option value="$PROJECT_DIR$/UpdateManager.txt" />
-        <option value="$PROJECT_DIR$/Repository.txt" />
-        <option value="$PROJECT_DIR$/Installer.bat" />
-        <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/Version.txt" />
-        <option value="$PROJECT_DIR$/Scripts/BackupSyncEngine.py" />
-        <option value="$PROJECT_DIR$/Scripts/File_Sender.py" />
-        <option value="$PROJECT_DIR$/Scripts/Get.py" />
-        <option value="$PROJECT_DIR$/Client.py" />
-        <option value="$PROJECT_DIR$/Client - UI.py" />
-        <option value="$PROJECT_DIR$/Main - UI.py" />
-        <option value="$PROJECT_DIR$/Resources/Temporary_Files/IP.txt" />
-        <option value="$PROJECT_DIR$/Scripts/BackupEngine.py" />
-        <option value="$PROJECT_DIR$/Resources/Temporary_Files/Saved_Network.txt" />
-      </list>
-    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="735" />
@@ -121,43 +24,29 @@
     <option name="width" value="981" />
     <option name="height" value="1041" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+      <pane id="ProjectPane">
+        <subPane>
           <expand>
             <path>
-              <item name="Client" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Adam Jasniewicz\PycharmProjects\Client" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="Client" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Adam Jasniewicz\PycharmProjects\Client" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="venv" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Client" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Server" />
+    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Adam-PC\PycharmProjects\Client\Client\Scripts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Adam-PC\PycharmProjects\Client\Client\Resources" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -171,556 +60,39 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Main - UI" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Client" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main - UI.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.Main - UI" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6a18683f-ea47-4e6e-97b3-84bcc3d2eb4a" name="Default Changelist" comment="" />
-      <created>1553273840410</created>
+      <changelist id="65d926fe-1909-4d02-a900-fae40c417406" name="Default Changelist" comment="" />
+      <created>1562030605045</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1553273840410</updated>
+      <updated>1562030605045</updated>
     </task>
-    <task id="LOCAL-00001" summary="reorganized">
-      <created>1553525463703</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1553525463703</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554312752674</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1554312752674</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554313564088</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1554313564088</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554314230222</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1554314230222</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554411347042</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1554411347042</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554512844745</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1554512844745</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554513156237</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1554513156237</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat">
-      <created>1554513348975</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1554513348975</updated>
-    </task>
-    <task id="LOCAL-00009" summary="test">
-      <created>1555198852474</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1555198852474</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Final before public">
-      <created>1555365339051</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1555365339051</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Final before public">
-      <created>1555375172525</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1555375172525</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Improving connection screen">
-      <created>1555423038803</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1555423038803</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Improving reconnection">
-      <created>1555692855922</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1555692855922</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.py">
-      <created>1555692989419</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1555692989419</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.py">
-      <created>1555693466389</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1555693466389</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Update Manager">
-      <created>1555716107620</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1555716107620</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Update Manager">
-      <created>1555716324076</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1555716324076</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Update Manager">
-      <created>1555716502870</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1555716502870</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Update Manager">
-      <created>1555716747126</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1555716747126</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Update Manager">
-      <created>1555716905311</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1555716905311</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Update Manager">
-      <created>1555717089868</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1555717089868</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Update Manager">
-      <created>1555717113786</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1555717113786</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Update Manager">
-      <created>1555717315527</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1555717315527</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Update Manager">
-      <created>1555718184339</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1555718184339</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Update Manager">
-      <created>1555718276567</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1555718276567</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Update Manager">
-      <created>1555718697568</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1555718697568</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Update Manager">
-      <created>1555718880655</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1555718880655</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Update Manager">
-      <created>1555719084678</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1555719084678</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Update Manager">
-      <created>1555719203299</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1555719203299</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Update Manager">
-      <created>1555719226978</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1555719226978</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Update Manager">
-      <created>1555722330262</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1555722330262</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Update Manager">
-      <created>1555792748081</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1555792748081</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Adding desktop optimization">
-      <created>1555793379745</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1555793379745</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Update manager update">
-      <created>1555793683430</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1555793683430</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Adding installer">
-      <created>1555809326043</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1555809326043</updated>
-    </task>
-    <task id="LOCAL-00036" summary="Adding update">
-      <created>1555809360339</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1555809360339</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Improved wired internet experience">
-      <created>1555862467764</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1555862467764</updated>
-    </task>
-    <task id="LOCAL-00038" summary="Improved wired internet experience">
-      <created>1555862927026</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1555862927026</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Improved wired internet experience">
-      <created>1560469736822</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1560469736822</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Improved wired internet experience">
-      <created>1560469770095</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1560469770095</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Improved wired internet experience">
-      <created>1561919663359</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1561919663359</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Fixed file sending bugs">
-      <created>1561924359667</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1561924359667</updated>
-    </task>
-    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1292" height="692" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992928" visible="true" weight="0.23290938" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" sideWeight="0.5007072" side_tool="true" weight="0.19484809" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3281471" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993395" visible="true" weight="0.429078" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4993395" weight="0.32956153" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5006605" side_tool="true" weight="0.32956153" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32956153" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32956153" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="SHOW_UNVERSIONED_FILES_WHILE_COMMIT" value="false" />
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/Client" />
-    </ignored-roots>
-    <MESSAGE value="reorganized" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.bat&#10;#&#9;Main - UI.py&#10;#&#9;Main.bat&#10;#&#9;Main.py&#10;#&#9;Resources/Current_Network.ps1&#10;#&#9;Resources/Temporary_files/Current_Network.txt&#10;#&#9;Resources/Temporary_files/IP.txt&#10;#&#9;Resources/Temporary_files/IP_TO_SEND.txt&#10;#&#9;Resources/ping.bat" />
-    <MESSAGE value="test" />
-    <MESSAGE value="Final before public" />
-    <MESSAGE value="Improving connection screen" />
-    <MESSAGE value="Improving reconnection" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Client - UI.py&#10;#&#9;Main - UI.py" />
-    <MESSAGE value="Update Manager" />
-    <MESSAGE value="Adding desktop optimization" />
-    <MESSAGE value="Update manager update" />
-    <MESSAGE value="Adding installer" />
-    <MESSAGE value="Adding update" />
-    <MESSAGE value="Improved wired internet experience" />
-    <MESSAGE value="Fixed file sending bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed file sending bugs" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Client/Client.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Resources/Temporary_Files/IP_TO_SEND.txt" />
-    <entry file="file://$PROJECT_DIR$/Client/readme.txt" />
-    <entry file="file://$PROJECT_DIR$/Client/Resources/BackupEngine.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Scripts/BackupSyncEngine.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Scripts/BackupEngine.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Scripts/File_Sender_2.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Scripts/test.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Main - UI.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Scripts/File_Sender.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Scripts/Get.py" />
-    <entry file="file://$PROJECT_DIR$/Client/Client - UI.py" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WINAPI.bat" />
-    <entry file="file://$PROJECT_DIR$/WINAPI2.py" />
-    <entry file="file://$PROJECT_DIR$/Resources/Temporary_Files/ping.txt" />
-    <entry file="file://$PROJECT_DIR$/Resources/Temporary_Files/Suspension.txt" />
-    <entry file="file://$PROJECT_DIR$/Resources/Temporary_Files/Client_Service.txt" />
-    <entry file="file://$PROJECT_DIR$/Resources/Current_Network.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="48" selection-start-column="48" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test" />
-    <entry file="file://$PROJECT_DIR$/Resources/Temporary_Files/Current_Network.txt" />
-    <entry file="file://$PROJECT_DIR$/Main - UI.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateManager.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Resources/ErrorLog.txt" />
-    <entry file="file://$PROJECT_DIR$/Repository.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/Installer.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WINAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Resources/Backup.txt" />
-    <entry file="file://$PROJECT_DIR$/Resources/Backup2.txt" />
-    <entry file="file://$PROJECT_DIR$/Version.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Resources/Temporary_Files/IP.txt" />
-    <entry file="file://$PROJECT_DIR$/Resources/Temporary_Files/Saved_Network.txt" />
-    <entry file="file://$PROJECT_DIR$/Resources/FTS.txt" />
-    <entry file="file://$PROJECT_DIR$/Scripts/BackupEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="118" column="26" lean-forward="true" selection-start-line="118" selection-start-column="26" selection-end-line="118" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client - UI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="199" column="4" selection-start-line="199" selection-start-column="4" selection-end-line="199" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/BackupSyncEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/File_Sender.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="224" column="31" selection-start-line="224" selection-start-column="31" selection-end-line="224" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/Get.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main - UI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>
