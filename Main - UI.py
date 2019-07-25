@@ -5,17 +5,6 @@ from threading import Thread
 
 null = open(os.devnull, 'w')
 
-
-class Check(Thread):
-    def __init__(self):
-        Thread.__init__(self)
-
-    def run(self):
-        while True:
-            time.sleep(5)
-            subprocess.run("Resources\\Current_Network.bat", stdout=null)
-
-
 class Default(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -48,19 +37,19 @@ class Default(Thread):
 
 
 def connected_to_network():
-    with open("Resources/Temporary_Files/Current_Network.txt") as file:
-        f_full = file.read()
-        if f_full.__contains__(": connected"):
-            try:
-                new = f_full.split("SSID")[1]
-                new = new.split(": ")[1]
-                current_network = new.split("\n")[0]
-                print("Currently connected to -> " + current_network)
-            except Exception as error:
-                error_print("Error while read current network", error)
-                return False
-        else:
-            current_network = ""
+    f_full = subprocess.run('netsh wlan show interfaces', capture_output=True, text=True)
+    f_full = f_full.stdout
+    if f_full.__contains__(": connected"):
+        try:
+            new = f_full.split("SSID")[1]
+            new = new.split(": ")[1]
+            current_network = new.split("\n")[0]
+            print("Currently connected to -> " + current_network)
+        except Exception as error:
+            error_print("Error while read current network", error)
+            return False
+    else:
+        current_network = ""
     sn = sn_func()
     if current_network == sn or f_full.__contains__(sn) or sn == "Insert SSID":
         return True
@@ -122,6 +111,4 @@ if __name__ == '__main__':
     create_resource_file("Temporary_Files/Suspension.txt", "Suspension", "")
     time.sleep(3)
     a = Default()
-    b = Check()
     a.start()
-    b.start()

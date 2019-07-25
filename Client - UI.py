@@ -17,15 +17,6 @@ global soc
 f_null = open(os.devnull, 'w')
 
 
-class Network(Thread):
-    def __init__(self):
-        Thread.__init__(self)
-
-    def run(self):
-        while True:
-            print('running')
-            subprocess.run("Resources/Current_Network.bat", stdout=f_null)
-
 
 class Starter(Thread):
     global soc
@@ -188,12 +179,12 @@ class Checker(Thread):
     def run(self):
         while True:
             time.sleep(7)
-            with open("Resources/Temporary_Files/Current_Network.txt") as f:
-                f = f.read()
-                if f.__contains__("disconnected"):
-                    close_client()
-                else:
-                    pass
+            f = subprocess.run('netsh wlan show interfaces', capture_output=True, text=True)
+            f = f.stdout
+            if f.__contains__("disconnected"):
+                close_client()
+            else:
+                pass
 
 
 class CheckIfNameSent(Thread):
@@ -333,12 +324,12 @@ def check_for_ip():
 def connected_to_network_func():
     while True:
         try:
-            with open("Resources/Temporary_Files/Current_Network.txt") as f:
-                f = f.read()
-                new = f.split("SSID")[1]
-                new = new.split(": ")[1]
-                new = new.split("\n")[0]
-                return new
+            f = subprocess.run('netsh wlan show interfaces', capture_output=True, text=True)
+            f = f.stdout
+            new = f.split("SSID")[1]
+            new = new.split(": ")[1]
+            new = new.split("\n")[0]
+            return new
         except Exception as error:
             error_print("Couldn't read Current_Network.txt", error)
             pass
