@@ -164,6 +164,8 @@ class Receive(Starter):
                         Get.can_connect = True
                     elif str(data).__contains__("--PORT--"):
                         port = str(data).split("--PORT--")[1]
+                        af = Check2(port)
+                        af.start()
 
                     else:
                         print('\n' + "Receiving message from server: " + data)
@@ -198,7 +200,7 @@ class CheckIfNameSent(Thread):
         Thread.__init__(self)
         self.server_socket = server_socket
 
-    def run(self):``
+    def run(self):
         hostname = socket.gethostname()
         mac_address = mac_func()
         pc_name = get_pc_name()
@@ -207,15 +209,61 @@ class CheckIfNameSent(Thread):
 
 
 class Check2(Thread):
-    def __init__(self):
+    global soc
+    def __init__(self, port_number):
+        global soc
         Thread.__init__(self)
+
+
+    
+        self.s = socket.socket()
+
+        host = get_ip_from_sock(soc)  # Ip address that the TCPServer  is there
+        port = port_number  # Reserve a port for your service every new transfer wants a new port or you must wait.
+
+        try:
+            self.s.connect((host, port))
+        except Exception as e:
+            print(e)
 
     def run(self):
         time.sleep(5)
         while True:
             time.sleep(5)
             message_to_send = "--TEST--"
-            soc.sendall(message_to_send.encode("utf-8"))
+            self.s.sendall(message_to_send.encode("utf-8"))
+
+    
+    
+
+
+# def check(port_number):
+#     port = port_number  # Reserve a port for your service every new transfer wants a new port or you must wait.
+#     s = socket.socket()  # Create a socket object
+#     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+#     host = ""  # Get local machine name
+#     try:
+#         s.bind((host, port))  # Bind to the port
+#     except:
+#         return False
+#     s.listen(5)  # Now wait for client connection.
+
+#     print('Server listening....')
+
+#     connection, address = s.accept()
+
+#     af = CheckSendThread(s)
+#     af.start()
+
+# class CheckSendThread():
+#     def __init__(self, s):
+#         Thread.__init__(self)
+#         self.socket = s
+    
+#     def run(self):
+#         while True:
+#             time.sleep(5)
+#             self.socket.send('--TEST--'.encode("utf-8"))
 
 
 class WindowsApiInterface(Thread):
@@ -448,7 +496,7 @@ def main():
         new_ip, server_ip = check_for_ip()
         a = Starter(new_ip, server_ip)
         b = Receive()
-        c = Check2()
+        # c = Check2()
         e = Checker()
         f = WindowsApiInterface()
         g = Output()
@@ -458,7 +506,7 @@ def main():
         a.start()
         b.start()
         h.start()
-        c.start()
+        # c.start()
 
         if get_network_connect():
             e.start()
