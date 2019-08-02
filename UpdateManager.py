@@ -29,7 +29,7 @@ def main():
         print('Updating client')
         client_update()
 
-    subprocess.call(['python.exe', 'Main - UI.py'])
+    subprocess.call(['python.exe', 'Main.py'])
 
 
 def client_update():
@@ -52,7 +52,7 @@ def client_update():
 
 
 def remove_files(client_repository):
-    for index, file in enumerate(client_repository):
+    for _, file in enumerate(client_repository):
         print(file)
         try:
             if os.path.isfile(file):
@@ -64,7 +64,7 @@ def remove_files(client_repository):
 
 
 def write_new_files(client_repository):
-    for index, file in enumerate(client_repository):
+    for _, file in enumerate(client_repository):
         new_file = requests.get("https://raw.githubusercontent.com/AdamJSoftware/Client/master/" + file)
         new_file = new_file.content.decode("utf-8")
         try:
