@@ -69,6 +69,7 @@ class Starter(Thread):
                 else:
                     time.sleep(5)
 
+
 class Check(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -89,4 +90,3 @@ if __name__ == '__main__':
     b = Check()
     b.start()
     a.start()
-

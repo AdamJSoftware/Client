@@ -200,15 +200,15 @@ class CheckIfNameSent(Thread):
 
 
 class Check2(Thread):
-    def __init__(self, server_socket):
+    def __init__(self):
         Thread.__init__(self)
-        self.server_socket = server_socket
 
     def run(self):
+        time.sleep(5)
         while True:
             time.sleep(5)
             message_to_send = "--TEST--"
-            self.server_socket.sendall(message_to_send.encode("utf-8"))
+            soc.sendall(message_to_send.encode("utf-8"))
 
 
 class WindowsApiInterface(Thread):
@@ -332,6 +332,7 @@ def connected_to_network_func():
             return new
         except Exception as error:
             error_print("Couldn't read Current_Network.txt", error)
+            close_client()
             pass
 
 
@@ -444,6 +445,7 @@ def main():
         new_ip, server_ip = check_for_ip()
         a = Starter(new_ip, server_ip)
         b = Receive()
+        c = Check2()
         e = Checker()
         f = WindowsApiInterface()
         g = Output()
@@ -453,11 +455,12 @@ def main():
         a.start()
         b.start()
         h.start()
+        c.start()
 
         if get_network_connect():
             e.start()
         time.sleep(10)
-        backup_start()
+        # backup_start()
     except Exception as error:
         error_log(error)
         error_print("Error at main", error)
