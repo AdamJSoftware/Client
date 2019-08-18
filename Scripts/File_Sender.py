@@ -8,15 +8,14 @@ def error_log(error):
         file.write(time.ctime() + "\n")
         file.write(str(error) + "\n" + "\n")
 
-def main(client):
-    port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
+def main(port, client):  # Reserve a port for your service every new transfer wants a new port or you must wait.
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
     s.bind((host, port))  # Bind to the port
     s.listen(5)  # Now wait for client connection.
-
+    print('PORT: {}'.format(port))
     print('Server listening....')
-    send_ready(client)
+    client.send('--SENDING_FILE--'.encode('utf-8'))
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -116,6 +115,3 @@ def send_ready(client):
     s.send(message.encode("utf-8"))
     print('message sent')
 
-
-if __name__ == '__main__':
-    main()

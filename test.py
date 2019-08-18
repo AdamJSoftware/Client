@@ -6,7 +6,6 @@ import uuid
 import time
 
 from Scripts import Get
-from Scripts import File_Sender
 
 sel = selectors.DefaultSelector()
 
@@ -150,14 +149,10 @@ def main():
             user_input = input(" -> ")
             if user_input == "/restart":
                 os._exit(1)
-            elif user_input == "/send":
-                print(int(main_thread.port) +2)
-                File_Sender.main(int(main_thread.port) +2 ,main_thread.soc)
             else:
                 main_thread.soc.sendall(str(user_input).encode("utf-8"))
-        except Exception as e:
-            print(e)
-
+        except:
+            pass
 
 
 def send_info(server_socket):
@@ -174,19 +169,19 @@ class Main(Thread):
         print('SYSTEM: Main thread initialized')
     
     def run(self):
-        self.port = GeneralStarter()
-        print("SYSTEM: Dedicated port: {}".format(self.port))
+        port = GeneralStarter()
+        print("SYSTEM: Dedicated port: {}".format(port))
         host = "172.24.10.134"
         self.soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.soc.connect((host, int(self.port)))
+        self.soc.connect((host, int(port)))
         print('SYSTEM: Successfuly connected to dedicated server')
 
         # dedicated_starter = dedicated_starter(soc)
         # dedicated_starter.start()
 
-        receiver = Receive(self.soc, self.port)
+        receiver = Receive(self.soc, port)
         receiver.start()
-        checker_port = int(self.port) + 1
+        checker_port = int(port) + 1
         checker = Checker(checker_port)
         checker.start()
 

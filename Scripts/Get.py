@@ -6,15 +6,13 @@ global can_connect
 can_connect = False
 
 
-def main(IP_TO_SEND):
+def main(port, host):
     global can_connect
     s = socket.socket()
+    port = int(port)+2
 
-    host = IP_TO_SEND  # Ip address that the TCPServer  is there
-    port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
-
-    while can_connect is False:
-        time.sleep(.1)
+    print('GET STARTED')
+    print('PORT: {}'.format(port))
 
     try:
         s.connect((host, port))
@@ -56,8 +54,6 @@ def GETFILES(IP_TO_SEND):
 
     s.connect((host, port))
     print('started reciever')
-
-
 
     try:
         pass

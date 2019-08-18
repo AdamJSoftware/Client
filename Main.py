@@ -25,14 +25,14 @@ class Default(Thread):
                     if ctn is True:
                         time.sleep(1)
                         os.system('cls')
-                        subprocess.call(['python.exe', 'Client.py'])
+                        subprocess.call(['python.exe', 'test.py'])
                         os.system('cls')
                     else:
                         time.sleep(4)
                 else:
                     time.sleep(1)
                     os.system('cls')
-                    subprocess.call(['python.exe', 'Client.py'])
+                    subprocess.call(['python.exe', 'test.py'])
                     os.system('cls')
 
 
@@ -102,13 +102,14 @@ else:
     os.mkdir("Resources/Temporary_Files")
 
 def create_name():
-    with open("Resources\\Computer_name.txt") as f:
-        f.read()   
-        if f=="":
+    with open("Resources\\Computer_name.txt", 'r') as f:
+        f = f.read()   
+        if f!="":
             pass
         else:
-            name = input("What is the name of this computer:")
-            f.write(name)
+            with open("Resources\\Computer_name.txt", 'w') as r:   
+                name = input("What is the name of this computer:")
+                r.write(str(name))
 
 if __name__ == '__main__':
     create_resource_file("Temporary_Files/Saved_Network.txt", "Saved Network", "Insert SSID")
@@ -119,6 +120,6 @@ if __name__ == '__main__':
     create_resource_file("Temporary_Files/Suspension.txt", "Suspension", "")
     create_resource_file("Computer_name.txt", "Name", "")
     create_name()
-    time.sleep(3)
+    time.sleep(1)
     a = Default()
     a.start()
