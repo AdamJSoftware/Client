@@ -117,7 +117,7 @@ class Checker2(Thread):
         while True:
             try:
                 time.sleep(1)
-                data = self.soc.recv(1024).decode()
+                self.soc.recv(1024).decode()
                 # print(data)
                 # self.soc.sendall("--TEST--".encode("utf-8"))
                 # print('done')
