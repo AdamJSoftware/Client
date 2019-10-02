@@ -7,16 +7,46 @@ import time
 
 from Scripts import Get
 from Scripts import File_Sender
+from Scripts import BackupSyncEngine
+from Scripts import BackupEngine
 
 sel = selectors.DefaultSelector()
+
+
+def error_log(error):
+    with open("Resources/ErrorLog.txt", 'a') as file:
+        file.write(time.ctime() + "\n")
+        file.write(str(error) + "\n" + "\n")
+
+
+def error_print(error_message, error):
+    print("SYSTEM ERROR - " + error_message + ": " + str(error))
+
+
+def get_files(server_socket):
+    server_ip = get_ip_from_sock(server_socket)
+    t = GETFILESThread(server_ip)
+    t.start()
+
+
+def get_ip():
+    cwd = os.getcwd()
+    cwd = cwd + '\Resources\IP.txt'
+    print(cwd)
+    with open(cwd, 'r') as f:
+        f = f.read()
+        print(f)
+    return(f)
+
 
 def get_ip_from_sock(sock):
     sock = str(sock).rsplit("raddr=('", 1)[1]
     sock = str(sock).rsplit("',", 1)[0]
     return sock
 
+
 def GeneralStarter():
-    host = "172.24.10.134"
+    host = get_ip()
     soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     port = 8888
     print("\nSYSTEM: General starter initialized")
@@ -43,13 +73,14 @@ def GeneralStarter():
         except Exception as e:
             print(e)
 
+
 class Receive(Thread):
 
     def __init__(self, soc, port):
         Thread.__init__(self)
         self.soc = soc
         self.port = port
-        print('SYSTEM: Receiver initialized')       
+        print('SYSTEM: Receiver initialized')
 
     def run(self):
         print('SYSTEM: Receiver started')
@@ -57,9 +88,15 @@ class Receive(Thread):
             try:
                 data = self.soc.recv(1024).decode()
                 if str(data) == "--SENDING_FILE--":
-                    get_thread = GetThread(self.port, get_ip_from_sock(self.soc))
+                    get_thread = GetThread(
+                        self.port, get_ip_from_sock(self.soc))
                     print('Running get thread')
                     get_thread.start()
+                elif str(data) == "--GETFILES--":
+                    print('REQUESTED GET FILES')
+                    a = GETFILESThread(get_ip_from_sock(
+                        self.soc), self.soc, int(self.port))
+                    a.start()
                 else:
                     print(data)
             except Exception as e:
@@ -68,12 +105,53 @@ class Receive(Thread):
                 print('Lost connection to server')
                 os._exit(1)
 
+
+class GETFILESThread(Thread):
+    def __init__(self, server_ip, server_socket, server_port):
+        Thread.__init__(self)
+        self.ip = server_ip
+        self.soc = server_socket
+        self.port = server_port
+
+    def run(self):
+        Get.GETFILES(self.ip, int(self.port)+2)
+        print('FINISHED SENDING')
+        BackupSyncEngine.main()
+        with open("Resources/FTS.txt", "r", encoding="utf-8-sig") as f:
+            f = f.readlines()
+        print('finished reading FTS')
+        for index, file in enumerate(f):
+            if file.__contains__("C:/"):
+                time.sleep(1)
+                message = "--SENDING_BACKUP_FILES--" + \
+                    str(socket.gethostname())
+                message = message.encode("utf-8")
+                self.soc.send(message)
+                print('sent message')
+                try:
+                    file = file.split("\n")[0]
+                except Exception as error:
+                    error_print("Error while reading FTS", error)
+                    error_log(error)
+                    pass
+                other_file = f[index + 1]
+                try:
+                    other_file = other_file.split("\n")[0]
+                except Exception as error:
+                    error_print("Error while reading FTS", error)
+                    error_log(error)
+                print('SENDING BACKUP FILE: ' + str(file))
+                print('SENDING NAME + ' + str(other_file))
+                File_Sender.send_backup_files(
+                    self.soc, int(self.port)+2, file, other_file)
+
+
 class Checker(Thread):
 
     def __init__(self, dedicated_port):
         Thread.__init__(self)
         print('SYSTEM: Checker initialized')
-        host = '172.24.10.134'
+        host = get_ip()
         port = dedicated_port
 
         self.soc = socket.socket()
@@ -101,7 +179,7 @@ class GetThread(Thread):
         Thread.__init__(self)
         self.port = port
         self.ip = ip
-    
+
     def run(self):
         Get.main(self.port, self.ip)
 
@@ -127,12 +205,14 @@ class Checker2(Thread):
                 time.sleep(1)
                 os._exit(1)
 
+
 def mac_func():
     mac_address = hex(uuid.getnode())
     mac_address = str(mac_address)
     mac_address = mac_address[2:]
     mac_address = mac_address.upper()
-    mac_address = ':'.join(a + b for a, b in zip(mac_address[::2], mac_address[1::2]))
+    mac_address = ':'.join(
+        a + b for a, b in zip(mac_address[::2], mac_address[1::2]))
     return mac_address
 
 
@@ -151,13 +231,25 @@ def main():
             if user_input == "/restart":
                 os._exit(1)
             elif user_input == "/send":
-                print(int(main_thread.port) +2)
-                File_Sender.main(int(main_thread.port) +2 ,main_thread.soc)
+                print(int(main_thread.port) + 2)
+                File_Sender.main(int(main_thread.port) + 2, main_thread.soc)
+            elif user_input == "/backup":
+                BackupEngine.main()
+                print('here')
+                File_Sender.backup_send(
+                    main_thread.soc, int(main_thread.port)+2, "Resources/Backup2.txt")
+                print('FINISEHD SENDING BACKUP FILE')
+            elif user_input == "/change IP":
+                get_ip()
+            elif main_thread.connected:
+                # main_thread.soc.sendall(str(user_input).encode("utf-8"))
+                pass
+            elif user_input == "":
+                pass
             else:
-                main_thread.soc.sendall(str(user_input).encode("utf-8"))
+                print('Unrecognized command. Please type "/help" for help')
         except Exception as e:
             print(e)
-
 
 
 def send_info(server_socket):
@@ -172,14 +264,16 @@ class Main(Thread):
     def __init__(self):
         Thread.__init__(self)
         print('SYSTEM: Main thread initialized')
-    
+
     def run(self):
+        self.connected = False
         self.port = GeneralStarter()
         print("SYSTEM: Dedicated port: {}".format(self.port))
-        host = "172.24.10.134"
+        host = get_ip()
         self.soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.soc.connect((host, int(self.port)))
         print('SYSTEM: Successfuly connected to dedicated server')
+        self.connected = True
 
         # dedicated_starter = dedicated_starter(soc)
         # dedicated_starter.start()
@@ -191,7 +285,5 @@ class Main(Thread):
         checker.start()
 
 
-
 if __name__ == "__main__":
     main()
- 

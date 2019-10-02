@@ -5,6 +5,7 @@ from threading import Thread
 
 null = open(os.devnull, 'w')
 
+
 class Default(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -15,7 +16,7 @@ class Default(Thread):
                 pass
             else:
                 time.sleep(1)
-                os.system('cls')
+                # os.system('cls')
                 if get_network_connect() is True:
                     print('Connection lost to server...')
                     print('Waiting for connection to the internet...')
@@ -24,20 +25,21 @@ class Default(Thread):
                     ctn = connected_to_network()
                     if ctn is True:
                         time.sleep(1)
-                        os.system('cls')
-                        subprocess.call(['python.exe', 'test.py'])
-                        os.system('cls')
+                        # os.system('cls')
+                        subprocess.call(['python.exe', 'Client.py'])
+                        # os.system('cls')
                     else:
                         time.sleep(4)
                 else:
                     time.sleep(1)
-                    os.system('cls')
-                    subprocess.call(['python.exe', 'test.py'])
-                    os.system('cls')
+                    # os.system('cls')
+                    subprocess.call(['python.exe', 'Client.py'])
+                    # os.system('cls')
 
 
 def connected_to_network():
-    f_full = subprocess.run('netsh wlan show interfaces', capture_output=True, text=True)
+    f_full = subprocess.run('netsh wlan show interfaces',
+                            capture_output=True, text=True)
     f_full = f_full.stdout
     if f_full.__contains__(": connected"):
         try:
@@ -101,22 +103,28 @@ if os.path.isdir("Resources/Temporary_Files"):
 else:
     os.mkdir("Resources/Temporary_Files")
 
+
 def create_name():
     with open("Resources\\Computer_name.txt", 'r') as f:
-        f = f.read()   
-        if f!="":
+        f = f.read()
+        if f != "":
             pass
         else:
-            with open("Resources\\Computer_name.txt", 'w') as r:   
+            with open("Resources\\Computer_name.txt", 'w') as r:
                 name = input("What is the name of this computer:")
                 r.write(str(name))
 
+
 if __name__ == '__main__':
-    create_resource_file("Temporary_Files/Saved_Network.txt", "Saved Network", "Insert SSID")
+    create_resource_file("Temporary_Files/Saved_Network.txt",
+                         "Saved Network", "Insert SSID")
     create_resource_file("Backup.txt", "Backup Log", "")
+    create_resource_file("IP.txt", "IP", "")
     create_resource_file("Config.txt", "Config", "Network connect: True")
-    create_resource_file("Temporary_Files/Client_Service.txt", "Client Service", "test")
-    create_resource_file("Temporary_Files/Current_Network.txt", "Current Network", "")
+    create_resource_file(
+        "Temporary_Files/Client_Service.txt", "Client Service", "test")
+    create_resource_file(
+        "Temporary_Files/Current_Network.txt", "Current Network", "")
     create_resource_file("Temporary_Files/Suspension.txt", "Suspension", "")
     create_resource_file("Computer_name.txt", "Name", "")
     create_name()

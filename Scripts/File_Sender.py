@@ -8,7 +8,9 @@ def error_log(error):
         file.write(time.ctime() + "\n")
         file.write(str(error) + "\n" + "\n")
 
-def main(port, client):  # Reserve a port for your service every new transfer wants a new port or you must wait.
+
+# Reserve a port for your service every new transfer wants a new port or you must wait.
+def main(client, port):
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
     s.bind((host, port))  # Bind to the port
@@ -33,16 +35,17 @@ def main(port, client):  # Reserve a port for your service every new transfer wa
     conn.close()
 
 
-def backup_send(client, path):
-    port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
+def backup_send(client, port, path):
+    # Reserve a port for your service every new transfer wants a new port or you must wait.
+    port = port
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
     s.bind((host, port))  # Bind to the port
     s.listen(5)  # Now wait for client connection.
 
     print('Server listening....')
-    send_ready(client)
-
+    print('USING PORT' + str(port))
+    client.send('--BACKUP--'.encode('utf-8'))
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
     name = str(socket.gethostname())+"||BACKUP.txt"
@@ -60,18 +63,19 @@ def backup_send(client, path):
     conn.close()
 
 
-def send_backup_files(client, path, name):
-    port = 50000  # Reserve a port for your service every new transfer wants a new port or you must wait.
+def send_backup_files(client, port, path, name):
+    # Reserve a port for your service every new transfer wants a new port or you must wait.
+    port = port
     s = socket.socket()  # Create a socket object
     host = ""  # Get local machine name
     s.bind((host, port))  # Bind to the port
     s.listen(5)  # Now wait for client connection.
 
     print(client)
+    client.send((('--SENDING_BACKUP_FILES--') +
+                 str(socket.gethostname())).encode('utf-8'))
 
     print('Server listening....')
-    send_ready(client)
-    print('Connect message sent')
 
     conn, address = s.accept()  # Establish connection with client.
     print('Got connection from', address)
@@ -105,13 +109,3 @@ def get_ip_from_sock(sock):
     sock = str(sock).rsplit("raddr=('", 1)[1]
     sock = str(sock).rsplit("',", 1)[0]
     return sock
-
-def send_ready(client):
-    s = socket.socket()
-    port = 12345
-    host = get_ip_from_sock(client)
-    s.connect((host, port))
-    message = 'CONNECT'
-    s.send(message.encode("utf-8"))
-    print('message sent')
-
