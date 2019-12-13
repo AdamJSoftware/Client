@@ -1,1 +1,0 @@
-ping.exe 192.168.92.1 -n 1 > Resources\Temporary_Files\ping.txt

@@ -1,1 +1,0 @@
-netsh wlan show interfaces > Resources\\Temporary_Files\\Current_Network.txt

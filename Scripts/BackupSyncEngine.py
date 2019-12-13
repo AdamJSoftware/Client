@@ -1,7 +1,10 @@
+import os
+
+
 def main():
-    with open("Resources/GETFILES.txt", "r", encoding="utf-8-sig") as GF:
+    with open(os.path.join('Resources', 'GETFILES.txt'), "r", encoding="utf-8-sig") as GF:
         GF = GF.readlines()
-    with open("Resources/Backup_SEND.txt", "r", encoding="utf-8-sig") as BS:
+    with open(os.path.join('Resources', 'Backup_SEND.txt'), "r", encoding="utf-8-sig") as BS:
         BS = BS.readlines()
 
     FTS = []
@@ -15,7 +18,7 @@ def main():
     for line in FTS:
         print(line)
 
-    with open("Resources/FTS.txt", "w", encoding="utf-8") as f:
+    with open(os.path.join('Resources', 'FTS.txt'), "w", encoding="utf-8") as f:
         for file in FTS:
             file = file.replace('\\', '/')
             f.write(file)

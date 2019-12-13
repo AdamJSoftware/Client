@@ -1,6 +1,7 @@
 import sys
 import time
 import socket
+import os
 
 global can_connect
 can_connect = False
@@ -46,7 +47,7 @@ def GETFILES(IP_TO_SEND, port):
 
     host = IP_TO_SEND  # Ip address that the TCPServer  is there
     # Reserve a port for your service every new transfer wants a new port or you must wait.
-    port = port
+    port = port + 2
 
     print('CONNECTING TO ' + host + " " + str(port))
 
@@ -60,7 +61,7 @@ def GETFILES(IP_TO_SEND, port):
         sys.exit()
     name = s.recv(1024)
     name = name.decode("utf-8")
-    with open("Resources/" + name, 'wb') as f:
+    with open(os.path.join('Resources', name), 'wb') as f:
         print('receiving data...')
         while True:
 

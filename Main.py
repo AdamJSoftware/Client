@@ -1,6 +1,7 @@
 import os
 import subprocess
 import time
+import json
 from threading import Thread
 
 null = open(os.devnull, 'w')
@@ -12,57 +13,8 @@ class Default(Thread):
 
     def run(self):
         while True:
-            if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
-                pass
-            else:
-                time.sleep(1)
-                # os.system('cls')
-                if get_network_connect() is True:
-                    print('Connection lost to server...')
-                    print('Waiting for connection to the internet...')
-                    sn = sn_func()
-                    print("Current Server Network -> " + sn)
-                    ctn = connected_to_network()
-                    if ctn is True:
-                        time.sleep(1)
-                        # os.system('cls')
-                        subprocess.call(['python.exe', 'Client.py'])
-                        # os.system('cls')
-                    else:
-                        time.sleep(4)
-                else:
-                    time.sleep(1)
-                    # os.system('cls')
-                    subprocess.call(['python.exe', 'Client.py'])
-                    # os.system('cls')
-
-
-def connected_to_network():
-    f_full = subprocess.run('netsh wlan show interfaces',
-                            capture_output=True, text=True)
-    f_full = f_full.stdout
-    if f_full.__contains__(": connected"):
-        try:
-            new = f_full.split("SSID")[1]
-            new = new.split(": ")[1]
-            current_network = new.split("\n")[0]
-            print("Currently connected to -> " + current_network)
-        except Exception as error:
-            error_print("Error while read current network", error)
-            return False
-    else:
-        current_network = ""
-    sn = sn_func()
-    if current_network == sn or f_full.__contains__(sn) or sn == "Insert SSID":
-        return True
-    else:
-        return False
-
-
-def sn_func():
-    with open("Resources/Temporary_Files/Saved_Network.txt") as SN:
-        sn = SN.read()
-        return sn
+            time.sleep(1)
+            subprocess.call(['python.exe', 'Client.py'])
 
 
 def error_log(error):
@@ -75,59 +27,45 @@ def error_print(error_message, error):
     print("SYSTEM ERROR - " + error_message + ": " + str(error))
 
 
-def create_resource_file(file_name, print_text, text):
-    if os.path.isfile("Resources/" + file_name):
+def create_config():
+    if os.path.isfile("config.json"):
         pass
     else:
-        print("SYSTEM: Creating " + print_text + "...")
-        with open("Resources/" + file_name, "w+") as file_to_create:
-            file_to_create.write(text)
-
-
-def get_network_connect():
-    with open("Resources/Config.txt", "r") as f:
-        f = f.read()
-        if f == "Network connect: True":
-            return True
-        else:
-            return False
-
-
-if os.path.isfile("Resources/Temporary_Files/tmp.txt"):
-    os.remove("Resources/Temporary_Files/tmp.txt")
-else:
-    pass
-
-if os.path.isdir("Resources/Temporary_Files"):
-    pass
-else:
-    os.mkdir("Resources/Temporary_Files")
+        print("SYSTEM: Creating Config File...")
+        config = {"computer_name": "", "ip": "",
+                  "backup": [], "backup_exclude": []}
+        with open('config.json', 'w') as f:
+            json.dump(config, f)
 
 
 def create_name():
-    with open("Resources\\Computer_name.txt", 'r') as f:
-        f = f.read()
-        if f != "":
-            pass
-        else:
-            with open("Resources\\Computer_name.txt", 'w') as r:
-                name = input("What is the name of this computer:")
-                r.write(str(name))
+    config = config_read()
+    if config['computer_name'] == "":
+        config['computer_name'] = input("What is the name of this computer: ")
+        config_write(config)
+
+
+def create_ip():
+    config = config_read()
+    if config['ip'] == "":
+        config['ip'] = input("Please input IP address:")
+        config_write(config)
+
+
+def config_read():
+    with open('config.json', 'r') as f:
+        return json.load(f)
+
+
+def config_write(data):
+    with open('config.json', 'w') as f:
+        json.dump(data, f)
 
 
 if __name__ == '__main__':
-    create_resource_file("Temporary_Files/Saved_Network.txt",
-                         "Saved Network", "Insert SSID")
-    create_resource_file("Backup.txt", "Backup Log", "")
-    create_resource_file("IP.txt", "IP", "")
-    create_resource_file("Config.txt", "Config", "Network connect: True")
-    create_resource_file(
-        "Temporary_Files/Client_Service.txt", "Client Service", "test")
-    create_resource_file(
-        "Temporary_Files/Current_Network.txt", "Current Network", "")
-    create_resource_file("Temporary_Files/Suspension.txt", "Suspension", "")
-    create_resource_file("Computer_name.txt", "Name", "")
+    create_config()
     create_name()
+    create_ip()
     time.sleep(1)
     a = Default()
     a.start()

@@ -1,143 +1,110 @@
 import os
 import sys
+import json
 
 
-def OG(files):
-    OG = files
-    for lines in OG:
-        if lines.__contains__("*"):
-            OG.remove(lines)
-
-    for lines in OG:
-        try:
-            newlines = lines.replace("\n", "")
-            OG.remove(lines)
-            OG.append(newlines)
-        except:
-            pass
-
-    newOG = []
-    for num in OG:
-        if num not in newOG:
-            newOG.append(num)
-
-    print('NEW OG')
-    print(newOG)
-    return newOG
-
-
-def backup2(filesAndSize, og):
-    newog = []
-    for file in og:
-        file = file.rsplit("\\", 1)[0]
-        print("FILE " + file)
-        newog.append(file)
-    newOG = []
-    for num in newog:
-        if num not in newOG:
-            newOG.append(num)
-    newlist = []
-    for files in filesAndSize:
-        i = True
-        for remv in newOG:
-            if str(files).__contains__(remv) or str(files) == remv:
-                files = str(files).replace(remv, str(""))
-                firstchar = files[:1]
-                if firstchar =='\\':
-                    newfile = files[1:]
-                    newlist.append(newfile)
-            if str(files).__contains__("["):
-                if i:
-                    newlist.append(files)
-                    i = False
-
-    for lines in newlist:
-        if lines == "\n":
-            newlist.remove(lines)
-            print("REMOVED")
-
-    # for lines in newlist:
-    #     # print(lines)
-
-    return newlist
-
-
-def main():
-    i = True
-    files_to_scan_func(i)
-
-
-def getsize(filename):
+def tree_func(absolute_path, current_folder, new_folder, exculde, folders):
     try:
-        st = os.stat(filename)
-        return st.st_size
-    except:
-        return "AN ERROR OCCURRED. FILE NAME MAY BE TOO LONG"
-
-
-def folder_func(path):
-    list = []
-    for name in os.listdir(path):
-        newPath = os.path.join(path, name)
-        list.append(newPath)
-    return list
-
-
-def folderorfile(file, filesAndSize, files):
-    path = os.path.normpath(str(file))
-    filesAndSize.append(file)
-    if os.path.isdir(path):
-        toBeAppended = folder_func(path)
-        files.extend(toBeAppended)
-    else:
-        size = getsize(file)
-        filesAndSize.append([size])
-
-
-def files_to_scan_func(i):
-    with open("Resources\Backup.txt", "r", encoding="utf-8-sig") as f:
-        og = OG(f.readlines())
-        print(og)
-
-    with open("Resources\Backup.txt", "r", encoding="utf-8-sig") as f:
-        filesAndSize = []
-        filesToExculde = []
-        f = f.readlines()
-
-        files = f
-        # print(files)
-
-    for file in files:
-        try:
-            file = file.replace("\n", "")
-        except:
-            pass
-        if file.__contains__("*"):
-            file = file.split("*")[1]
-            filesToExculde.append(file)
-            print("ADDED FILE TO EXCLUDE")
-        if len(filesToExculde) == 0:
-            folderorfile(file, filesAndSize, files)
-        else:
-            for i in filesToExculde:
-                if i in file:
+        current_folder = os.path.join(current_folder, new_folder)
+        # Sets current_folder to the new one (used during recuersiion)
+        tree = os.listdir(current_folder)
+        # List all the files and folders in in current folder
+        for item in tree:
+            # for every item in the directory
+            if os.path.isdir(os.path.join(current_folder, item)):
+                # Check if item is a directory
+                if os.path.join(current_folder, item) in exculde:
+                    # If the folder is in the exclude array skip over it
                     pass
                 else:
-                    folderorfile(file, filesAndSize, files)
+                    folders.append(os.path.join(current_folder, item))
+                    # Add this folder in the folder array
+                    tree_func(absolute_path, current_folder,
+                              item, exculde, folders)
 
-    with open("Resources/Backup_SEND.txt", "w", encoding="utf-8") as f:
-        for file in filesAndSize:
-            f.write(str(file).replace('\\', '/') + "\n")
+                    # Runs the recursion code adding the files scaned (absolute_path array), the current folder, the item (new folder), what folders to exculde, folders audited and the modification date of a file
 
-    with open("Resources/Backup2.txt", "w", encoding="utf-8") as f:
-        b2 = backup2(filesAndSize, og)
-        for file in b2:
-            f.write(str(file).replace('\\', '/') + "\n")
+            else:
+                # absolute_path.append(os.path.join(current_folder, item))
+                # Append the file to the absolute path array
+                try:
+                    absolute_path.append({"name": os.path.join(current_folder, item), "file_date": os.path.getmtime(
+                        os.path.join(current_folder, item))})
+                    # file_date.append(os.path.getmtime(
+                    #     os.path.join(current_folder, item)))
+                    # Appending the modification date to the file_date array
+                except Exception as e:
+                    # Due to privilge issues, this is sometimes not possible so NA is used to keep the position consisten between absolute_path array and file_date array
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    print("Error: {} at line {}".format(e, exc_tb.tb_lineno))
+                    print('Writing manual')
+                    absolute_path.append({"name": os.path.join(
+                        current_folder, item), "file_date": 'NA'})
+                    # file_date.append('NA')
+        return absolute_path, folders
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        print("Error: {} at line {}".format(e, exc_tb.tb_lineno))
+
+
+def relative_path(absolute_path, root_directory):
+    return absolute_path.split(os.path.join(root_directory, ''))[1]
+
+
+# absolute_path = []
+# The absolute path is the array of every file in the selected directory with it's absolute path (c:\users\...)
+# relative_path = []
+# The relative path is the array of every file in the selected directory containing the relative path (root=selected folder, documents\...)
+# file_date = []
+# The file_date is the array containing the last modification time of every file in either the array or absolute path (both of them having the same index)
+# exculde = ['itinfluencer']
+# Tells the program which folders to exculde
+
+
+def config_create(backup_directory):
+    config = {"absolute_path": [],
+              "folders": [], "relative_path": []}
+    with open(backup_directory, 'w') as f:
+        json.dump(config, f, indent=4)
+
+
+def config_read(backup_directory):
+    with open(backup_directory, 'r') as f:
+        return json.load(f)
+
+
+def config_write(data, backup_directory):
+    with open(backup_directory, 'w') as f:
+        json.dump(data, f, indent=4)
+
+
+def main(current_folders, exclude):
+    try:
+        backup_directory = os.path.join('Resources', 'backup_audit.json')
+        config_create(backup_directory)
+        for current_folder in current_folders:
+            print(current_folder)
+            absolute_path, folders = tree_func(
+                absolute_path=[], current_folder=current_folder, new_folder='', exculde=exclude, folders=[])
+            config = config_read(backup_directory)
+            config['absolute_path'].append(absolute_path)
+            for index, item in enumerate(absolute_path):
+                realtive = relative_path(item['name'], current_folder)
+                config['relative_path'].append(
+                    {"name": realtive, "file_date": absolute_path[index]['file_date']})
+            for item in folders:
+                realtive = relative_path(item, current_folder)
+                config['folders'].append(realtive)
+            config_write(config, backup_directory)
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        print("Error: {} at line {}".format(e, exc_tb.tb_lineno))
 
 
 if __name__ == '__main__':
     try:
-        main()
-    except:
-        e = sys.exc_info()
-        print(f'Error {e}')
+        main(['C:\\Users\\adam-pc\\Documents\\GitHub'],
+             ['C:\\Users\\adam-pc\\Documents\\GitHub\\itinfluencer'])
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        print("Error: {} at line {}".format(e, exc_tb.tb_lineno))
